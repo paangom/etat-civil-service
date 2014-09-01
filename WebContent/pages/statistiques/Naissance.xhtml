@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Statistiques</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Home" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">STATISTIQUES DES NAISSANCES </h1>
+                <div class="panContent" align="center">
+                <br></br>
+                <h:form id="pa">
+                <div align="right">
+                   		<h:panelGrid columns="4" style="margin-bottom:1px;" >
+                   				<p:selectOneMenu value="#{statistiques.selectJour}" >  
+                                    <f:selectItem itemLabel="Jour" />  
+                                    <f:selectItems value="#{statistiques.jour}"/>
+                                     
+                                </p:selectOneMenu>
+                   		
+                                <p:selectOneMenu value="#{statistiques.selectMois}">  
+                                    <f:selectItem itemLabel="Mois" />  
+                                    <f:selectItems value="#{statistiques.mois}"/>
+                                    
+                                </p:selectOneMenu>
+                                <p:selectOneMenu value="#{statistiques.selectAnnee}">  
+                                    <f:selectItem itemLabel="Année" />
+                                    <f:selectItems value="#{statistiques.annees}"/> 
+                                    
+                                </p:selectOneMenu>
+
+                                <p:commandButton action="#{statistiques.naissance}" update=":papa:pap, :papa" icon="ui-icon-search"/> 
+                            </h:panelGrid>
+                   		
+                   		</div>
+                   		</h:form>
+                   <h:form id="papa" prependId="false">
+                   	
+                        <p:growl id="growl" sticky="true" />
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                        <p:fieldset legend="#{statistiques.statEnCours}" style=" width:100%;">
+                            <h:panelGrid  columns="1" cellpadding="10" style=" width:100%;"> 
+
+                                <p:panel id="panel1"  style="align-text:top;  width:100%;" header="DECLARATIONS VALIDEES: #{statistiques.statDecNV}">  
+                                  <div align="center">
+			                            <p:dataTable id="pap" var="stat" value="#{statistiques.listDNV}"  emptyMessage="Aucune déclaration de naissance validé!" style="width: 98%;">  
+			
+			
+			                                <p:column headerText="Acte">  
+			                                    <h:outputText value="#{stat.numero_acte}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Prénoms">  
+			                                    <h:outputText value="#{stat.prenom_enfant}" />  
+			                                </p:column>  
+			
+			                                <p:column headerText="Nom">  
+			                                    <h:outputText value="#{stat.nom_enfant}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Sexe">  
+			                                    <h:outputText value="#{stat.sexe}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Date de naissance">  
+			                                    <h:outputText value="#{stat.date_naissance_enfant}" />  
+			                                </p:column>
+			
+			                                <p:column headerText="Lieu de naissance">  
+			                                    <h:outputText value="#{stat.lieu_naissance_enfant}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Date déclaration">  
+			                                    <h:outputText value="#{stat.date_creation}" />  
+			                                </p:column> 
+			                                
+			                            </p:dataTable>    
+			                        </div>   
+                                </p:panel>
+                                 <p:panel  style="align-text:top;  width:100%;" header="DECLARATIONS EN INSTANCE: #{statistiques.statDecN}">  
+                                  <div align="center">
+                                  	<p:dataTable var="dec" value="#{statistiques.listDN}" emptyMessage="Aucune déclaration de naissance en instance!" style="width: 98%;">  
+			
+			
+			                                <p:column headerText="Prénoms">  
+			                                    <h:outputText value="#{dec.prenom_enfant}" />  
+			                                </p:column>  
+			
+			                                <p:column headerText="Nom">  
+			                                    <h:outputText value="#{dec.nom_enfant}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Sexe">  
+			                                    <h:outputText value="#{dec.sexe}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Date de naissance">  
+			                                    <h:outputText value="#{dec.date_naissance_enfant}" />  
+			                                </p:column>
+			
+			                                <p:column headerText="Lieu de naissance">  
+			                                    <h:outputText value="#{dec.lieu_naissance_enfant}" />  
+			                                </p:column> 
+			                                
+			                                
+			                                <p:column headerText="Date déclaration">  
+			                                    <h:outputText value="#{dec.date_creation}" />  
+			                                </p:column> 
+			                                
+			                            </p:dataTable>    
+			                        </div>   
+                                </p:panel>
+                                 
+                            </h:panelGrid>
+                         </p:fieldset>
+                            
+                        </h:panelGrid>
+                        
+                        </h:form>
+                   
+                   
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+	<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+</ui:fragment>
+</html>

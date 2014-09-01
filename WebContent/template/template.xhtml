@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    	<link rel="shortcut icon" href="home.png" type="image/x-icon"/>
+	<link rel="icon" href="home.png" type="image/x-icon"/>
+		<link type="text/css"
+		href="#{request.contextPath}/resources/css/login.css" rel="stylesheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <f:metadata>
+            <p:idleMonitor timeout="#{session.maxInactiveInterval * 1000 - 125000}">
+            	<f:event listener="#{loginBean.verifyUseLogin}" type="preRenderView" />
+            </p:idleMonitor>
+        </f:metadata>
+    </h:head>
+	
+    <h:body  style="width:1100px;">
+
+        <div id="top" class="ui-widget ui-widget-header ui-corner-all" style="height:150px;">
+            <ui:insert name="top">
+                <ui:fragment rendered="#{centreBean.alert eq true}">
+                <div  id="DivClignotante" align="left" style="visibility:visible; margin-left:15%; height: 15px; background-color: red; width: 450px">
+					<p>Pensez à réactiver l'application. Il vous reste <h:outputText value="#{centreBean.joursRestants}"/> jours. Merci! </p>
+                </div>
+                </ui:fragment>
+                <div class="profil" align="right" >
+                 
+                    <h:form>
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h3>Bienvenue </h3><p:commandLink value="#{loginBean.userConnect.userPrenom} #{loginBean.userConnect.userNom}" action="#{menuBean.infoProfil}"/>
+                            <p:commandButton value="Déconnexion" action="#{loginBean.logout}"/>
+                        </h:panelGrid>
+
+                    </h:form>
+                </div>
+            </ui:insert>
+        </div>
+        <div id="page" style="width:1100px">
+            <div id="left" style="width:200px">
+
+                <h:form>
+                    <p:growl id="growl" sticky="true" />
+
+                    <h2 style="margin-left: 5px;">MENU PRINCIPAL</h2>  
+                     
+                    				<h:panelGrid columns="1">
+                        
+				                          
+				                          <ui:fragment rendered="#{userBean.profilCon eq true}">
+				                          <p:menu style="width:100%;" >
+						                     	<p:submenu label="Centre d'Etat Civil"> 
+						                        	<p:menuitem value ="Accueil" update="messages" url="#{menuBean.home}"/>
+						                        	<p:menuitem value="Paramètres du centre" update="messages" url="#{menuBean.infoCentre}" />
+									            	<p:menuitem value="Les utilisateurs" update="messages" url="#{menuBean.userList}" />
+						                        </p:submenu>
+						                        <p:submenu label="Gestion des pièces annexes" icon="ui-icon-document">
+									            	<p:menuitem value="Versement" icon="ui-icon-contact" url="#{menuBean.versement}" />   
+											    	<p:menuitem value="Définir prix" icon="ui-icon-contact" url="#{menuBean.prixpieces}" />
+											        <p:menuitem value="Recettes" icon="ui-icon-contact" url="#{statistiques.recettes}" update=":formDataTable:pieces:col1, :select"/>
+											   	</p:submenu>
+											   	</p:menu>
+						                  </ui:fragment>
+						                  <ui:fragment rendered="#{userBean.profilCon eq false}">
+						                  <p:menu style="width:100%;" >
+						                  		<p:submenu label="Centre d'Etat Civil"> 
+						                        	<p:menuitem value ="Accueil" update="messages" url="#{menuBean.home}"/>
+						                        </p:submenu>
+						                        <p:submenu label="Naissance" icon="icon-naissance">  
+						                            <p:menuitem value="Nouvelle déclaration" update="messages" url="#{menuBean.declarerN}" />  
+						                            <p:menuitem value="Liste des déclarations" url="#{menuBean.listeDA}"  update="messages" /> 
+						                            <p:menuitem value="Registres"  update="messages" url="#{menuBean.registreNaissance}"/> 
+						                        </p:submenu>  
+						                        <p:submenu label="Mariage">  
+						                            <p:menuitem value="Nouvelle déclaration"  update="messages" url="#{menuBean.declarerM}" />  
+						                            <p:menuitem value="Liste des déclarations"  update="messages" url="#{menuBean.listeDM}" /> 
+						                            <p:menuitem value="Registres"  update="messages" url="#{menuBean.registreMariage}" /> 
+						                        </p:submenu> 
+						                        <p:submenu label="Décès">  
+						                            <p:menuitem value="Nouvelle déclaration"  update="messages" url="#{menuBean.declarerD}" />  
+						                            <p:menuitem value="Liste des déclarations"  update="messages" url="#{menuBean.listeDD}" /> 
+						                            <p:menuitem value="Registres"  update="messages" url="#{menuBean.registreDeces}" /> 
+						                        </p:submenu>
+						                        <p:submenu label="Pièces annexes">  
+						                            <p:menuitem value="Créer une pièce annexe"  update=":formCreat" oncomplete="userDialogCreate.show()"/>
+						                            
+						                        </p:submenu>
+						                        
+						                        <p:submenu label="Statistiques">  
+						                            <p:menuitem value="Naissance"  action="#{statistiques.naissanceAll}"/>
+						                            <p:menuitem value="Mariage"  action="#{statistiques.mariageAll}"/>
+						                            <p:menuitem value="Décès"  action="#{statistiques.decesAll}"/>
+						                            <p:menuitem value="Pièces annexes"  action="#{statistiques.piecesAll}"/>
+						                            
+						                        </p:submenu>
+						                        </p:menu>
+						                     </ui:fragment>
+						                      
+						                   
+				                        </h:panelGrid>
+                    
+                </h:form>
+                
+                
+
+            </div>
+            <div>
+            	
+            </div>
+            <div id="content" class="left_content ui-widget" style="width:870px">
+                <ui:insert name="content">Content</ui:insert>
+                 <h:form id="formCreat" style="width:300px">
+                            <p:dialog header="Liste des pièces annexes" widgetVar="userDialogCreate" resizable="false" id="userDlgCreate"  
+                                      showEffect="fade" hideEffect="explode" modal="true">  
+
+                                <h:panelGrid id="display" columns="1" cellpadding="4" style="margin:0 auto;">   
+
+                                   <p:menu style="width:350px">
+				                        
+					                        <p:menuitem value="Attestation de coutume"  update="messages" url="#{menuBean.attestationdecoutume}" /> 
+				                            <p:menuitem value="Attestation de non existance"  update="messages" url="#{menuBean.nonExistance}" />
+				                            <p:menuitem value="Attestation de résidence"  update="messages" url="#{menuBean.residence}" /> 
+				                            <p:menuitem value="Certificat de Célibat"  update="messages" url="#{menuBean.celibat}" />
+				                            <p:menuitem value="Certificat d'individualité"  update="messages" url="#{menuBean.individualite}" />
+				                            <p:menuitem value="certificat de monogamie"  update="messages" url="#{menuBean.monogamie}" />
+				                            <p:menuitem value="Certificat de non divorce, de non séparation de corps"  update="messages" url="#{menuBean.nonDivorceNonSeparation}" />
+				                            <p:menuitem value="Certificat de non inscription"  update="messages" url="#{menuBean.nonInscription}" />
+				                            <p:menuitem value="Certificat de non mariage, de non divorce"  update="messages" url="#{menuBean.nonMariageNondivorce}" />
+				                            <p:menuitem value="Certificat de non mariage, de non remariage"  update="messages" url="#{menuBean.nonMariageNonRemariage}" /> 
+				                            <p:menuitem value="Certificat de non inscription de mariage"  update="messages" url="#{menuBean.nonInscriptionMariage}" />
+				                            <p:menuitem value="Certificat de vie collectif"  update="messages" url="#{menuBean.collectif}" />
+				                            <p:menuitem value="Certificat de vie collectif, de charge de famille"  update="messages" url="#{menuBean.collectitFamille}" /> 
+				                            <p:menuitem value="Certificat de vie individuel"  update="messages" url="#{menuBean.individuel}" />  
+				                            <p:menuitem value="Certificat de vie individuel, de charge de famille"  update="messages" url="#{menuBean.individuelFammile}" />
+				                            <p:menuitem value="Permis d'inhumation"  update="messages" url="#{menuBean.inhumation}" />
+				                       
+				                    </p:menu>
+                                </h:panelGrid>  
+
+                            </p:dialog>  
+
+                        </h:form>
+                        
+                        
+			                
+            </div>
+            
+            
+            <div id="bottom" class="ui-widget ui-widget-header ui-corner-all" style="align:bottom">
+			        
+			            
+			            
+					                <div class="footer">
+					                    ECS &copy;2014 - Conçue par <a href="http://www.syscoweb.com">SYSCOWEB</a><br />
+					                    Adresse: Cité Fadia - Villa N°217 <br /> Tel: +221 33 835 24 25<br /> Cell:+221 77 422 45 77
+					                </div>
+					            
+			</div>
+        </div>
+        <script type="text/javascript"> 
+			var clignotement = function(){ 
+			   if (document.getElementById('DivClignotante').style.visibility=='visible'){ 
+			      document.getElementById('DivClignotante').style.visibility='hidden'; 
+			   } 
+			   else{ 
+			   document.getElementById('DivClignotante').style.visibility='visible'; 
+			   } 
+			}; 
+			
+			// mise en place de l appel de la fonction toutes les 0.8 secondes 
+			// Pour arrêter le clignotement : clearInterval(periode); 
+			periode = setInterval(clignotement, 500); 
+		</script>
+        
+        
+    </h:body>
+
+</html>

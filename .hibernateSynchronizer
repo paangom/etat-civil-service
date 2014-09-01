@@ -1,0 +1,4 @@
+databaseUrl=jdbc:mysql://localhost:3306/ecs
+driver=com.mysql.jdbc.Driver
+username=root
+ConfigurationFile=\etat-civil-service\src\hibernate.cfg.xml

@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Déclaration d'Acte de Décès</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+           <ui:define name="content">
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Home" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">DECLARATION DE DECES</h1>
+                <div class="panContent" align="center">
+                    <h:form id="formAddDec">
+                        <p:growl id="growl" sticky="true" />
+
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS DU DECES">
+                                <div align="center">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;">
+                                        <h:outputLabel for="datedc" value="Date du décès" style="text-align: right;" />  
+                                        <p:calendar id="datedc" effect="fadeIn" navigator="true" value="#{decDCBean.decToAdd.date_d}" required="true" requiredMessage="Veuillez choisir la date de décès." placeholder="Date du décès" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                        <h:outputLabel for="heuredc" value="Heure du décès" style="text-align: right;" />  
+                                        <p:calendar id="heuredc"  pattern="HH:mm" timeOnly="true" value="#{decDCBean.decToAdd.heure_d}" placeholder="Heure du décès" required="true" requiredMessage="Veuillez choisir l'heure du décès."/>
+
+                                        <h:outputLabel for="lieudc" value="Lieu du décès" style="text-align: right;" />  
+                                        <p:inputText id="lieudc"  required="true" label="Lieu du décès" value="#{decDCBean.decToAdd.lieu_deces}" placeholder="Lieu du décès" requiredMessage="Veuillez saisir le lieu du décès.">
+                                        <f:validateLength minimum="3"/>
+                                        </p:inputText>
+
+                                        <h:outputLabel for="fs" value="Formation sanitaire" style="text-align: right;" />  
+                                        <p:inputText id="fs"  required="true" label="Formation sanitaire" value="#{decDCBean.decToAdd.formation_sanitaire}" placeholder="Formation sanitaire du décès" requiredMessage="Veuillez saisir la formation sanitaire du décès">
+                                        	<f:validateLength minimum="3"/>
+                                        </p:inputText>
+                                        
+                                        <h:outputLabel for="pd" value="Pays de décès" style="text-align: right;" />  
+                                        <p:inputText id="pd" value="#{decDCBean.decToAdd.pays_deces}" placeholder="Pays du décès"/>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset> 
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS SUR LE DEFUNT">
+                                <div align="center">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname"  required="true" label="Prenoms" value="#{decDCBean.decToAdd.prenom_defunt}" placeholder="Prénoms du défunt" requiredMessage="Veuillez saisir le prénom du défunt.">
+                                        <f:validateLength minimum="3"/>
+                                        </p:inputText>  
+
+                                        <h:outputLabel for="nom" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom"  required="true" label="Nom" value="#{decDCBean.decToAdd.nom_defunt}" placeholder="Nom du défunt" requiredMessage="Veuillez saisir le nom du défunt.">
+                                        <f:validateLength minimum="2"/>
+                                        </p:inputText> 
+
+                                        <h:outputLabel for="dateN" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN" effect="fadeIn" required="true" requiredMessage="Veuillez choisir la date de naissance du défunt." navigator="true" value="#{decDCBean.decToAdd.date_naissanceDefunt}" maxdate="calwidget.today()" placeholder="Date de naissance du défunt(e)" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true">
+                                            <f:convertDateTime type="date"  dateStyle="short" pattern="dd/MM/yyyy" />
+                                        </p:calendar>
+                                        
+                                        <h:outputLabel for="type" value="Sexe" style="text-align: right;" />  
+                                        <p:selectOneRadio id="type" value="#{decDCBean.decToAdd.sexe_defunt}" required="true" requiredMessage="Veuillez choisir le sexe du défunt.">  
+                                            <f:selectItem itemLabel="Féminin" itemValue="Féminin" />  
+                                            <f:selectItem itemLabel="Masculin" itemValue="Masculin" />  
+                                        </p:selectOneRadio>
+
+                                        <h:outputLabel for="lieuN" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN" required="true" label="Lieu de naissance" placeholder="Lieu de naissance du défunt(e)" value="#{decDCBean.decToAdd.lieu_naissance_defunt}" requiredMessage="Veuillez saisir le lieu de naissance du défunt.">
+                                        <f:validateLength minimum="3"/>
+                                        </p:inputText> 
+
+                                        <h:outputLabel for="professiondc" value="Profession" style="text-align: right;"/>  
+                                        <p:inputText id="professiondc" label="Profession" value="#{decDCBean.decToAdd.profession_defunt}" placeholder="Profession du défunt(e)"/> 
+										
+										<h:outputLabel for="domicileDef" value="Domicile" style="text-align: right;"/>  
+                                        <p:inputText id="domiciledef" label="Domicile" value="#{decDCBean.decToAdd.domicile_defunt}" required="true" requiredMessage="Veuillez saisir le domicile du défunt(e)" placeholder="Domicile du défunt(e)"/> 
+										
+                                        <h:outputLabel for="mariedTO" value="Précédemment marié à" style="text-align: right;"/>  
+                                        <p:inputText id="mariedTO"  label="Précédemment marié à" value="#{decDCBean.decToAdd.marie_a}" placeholder="Epoux(se) du défunt(e))"/> 
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS SUR LES PARENTS">
+                                <h:panelGrid columns="2" cellpadding="4" style="width: 100%">
+                                   
+                                    <p:panel header="LE PERE">
+                                        <h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+                                            <h:outputLabel for="firstnameP" value="Prénoms" style="text-align: right;" />  
+                                            <p:inputText id="firstnameP" label="Prenoms" value="#{decDCBean.decToAdd.prenom_pere}" placeholder="Prénoms du père du défunt(e)"/>  
+
+                                            <h:outputLabel for="nomP" value="Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomP" label="Nom" value="#{decDCBean.decToAdd.nom_pere}" placeholder="Nom du père du défunt(e)"/> 
+
+                                            <h:outputLabel for="adresseP" value="Domicile" style="text-align: right;" />  
+                                            <p:inputText id="adresseP" label="Domicile" value="#{decDCBean.decToAdd.domicile_pere}" placeholder="Domicile du père du défunt(e)"/>  
+
+                                            <h:outputLabel for="professionP" value="Profession" style="text-align: right;"/>  
+                                            <p:inputText id="professionP" label="Profession" value="#{decDCBean.decToAdd.profession_pere}" placeholder="Profession du père du défunt(e)"/> 
+                                        </h:panelGrid>
+                                    </p:panel>
+                                    
+                                     <p:panel header="LA MERE">
+                                        <h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+                                            <h:outputLabel for="firstnameM" value="Prénoms" style="text-align: right;" />  
+                                            <p:inputText id="firstnameM" label="Prenoms" value="#{decDCBean.decToAdd.prenom_mere}" placeholder="Prénoms de la mère du défunt(e)"/>  
+
+                                            <h:outputLabel for="nomM" value="Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomM" label="Nom" value="#{decDCBean.decToAdd.nom_mere}" placeholder="Nom de la mère du défunt(e)"/> 
+
+                                            <h:outputLabel for="adresseM" value="Domicile" style="text-align: right;" />  
+                                            <p:inputText id="adresseM" label="Domicile" value="#{decDCBean.decToAdd.domicile_mere}" placeholder="Domicile de la mère du défunt(e)"/>  
+
+                                            <h:outputLabel for="professionM" value="Profession" style="text-align: right;"/>  
+                                            <p:inputText id="professionM" label="Profession" value="#{decDCBean.decToAdd.profession_mere}" placeholder="Profession de la mère du défunt(e)"/> 
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS SUR LE DECLARANT">
+                                <div align="center" >
+                                    <h:panelGrid columns="4" cellpadding="5" style="width: 100%">
+                                        
+                                        <h:outputLabel for="firstnameD" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstnameD" label="Prenom" value="#{decDCBean.decToAdd.prenom_declarant}" placeholder="Prénoms du déclarant"/>  
+
+                                        <h:outputLabel for="nomD" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nomD" label="Nom" value="#{decDCBean.decToAdd.nom_declarant}" placeholder="Nom du déclarant"/> 
+
+                                        <h:outputLabel for="adresseD" value="Domicile" style="text-align: right;" />  
+                                        <p:inputText id="adresseD" label="Domicile" value="#{decDCBean.decToAdd.adresse_declarant}" placeholder="Adresse du déclarant"/>  
+
+                                        <h:outputLabel for="professionD" value="Profession" style="text-align: right;"/>  
+                                        <p:inputText id="professionD" label="Profession" value="#{decDCBean.decToAdd.profession_declarant}" placeholder="Profession du déclarant"/> 
+                                        
+                                        <h:outputLabel for="cniD" value="Numéro d'identification" style="text-align: right;"/>  
+                                        <p:inputMask id="cniD" label="Numéro d'identification" mask="9999999999999" placeholder="CNI du déclarant" value="#{decDCBean.decToAdd.num_identification_declarant}"/> 
+
+                                    	<h:outputText value="Degré de parenté"  rendered="true"/>  
+                                        <p:selectOneMenu value="#{decDCBean.decToAdd.degre_parente}">  
+                                            <f:selectItem itemLabel="Déclaré par qui?" itemValue="" />  
+                                            <f:selectItem itemLabel="Père" itemValue="Père" />  
+                                            <f:selectItem itemLabel="Mère" itemValue="Mère" />  
+                                            <f:selectItem itemLabel="Autre" itemValue="Autre" />  
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+
+                            
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="COMPLEMENTS">
+                                <div align="center">
+                                    <h:panelGrid columns="4" cellpadding="5">
+                                    
+                                    	<h:outputLabel value="Numéro de jugement" style="text-align: right;"/>  
+                                        <p:inputMask  value="#{decDCBean.decToAdd.num_jugement}" mask="99999" placeholder="Numéro de jugement"/> 
+                                        
+                                        <h:outputText value="Date de Jugement " />   
+                                        <p:calendar effect="fadeIn" navigator="true" placeholder="Date de jugement" value="#{decDCBean.decToAdd.date_j}" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                        <h:outputLabel for="tribunal" value="Tribunal" style="text-align: right;"/>  
+                                        <p:inputText id="tribunal" label="Tribunal" value="#{decDCBean.decToAdd.tribunal}" placeholder="Tribunal de Paix"/> 
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="MENTIONS MARGINALES">
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="5">
+                                      	<div align="center">
+                                    		<p:inputTextarea value="#{decDCBean.decToAdd.mention_marginale}" placeholder="Mentions marginales"  rows="15" cols="160" style="width: 100%; " label="Mention marginale" />  
+                                		</div>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid >
+                        <h:panelGrid columns="1" cellspacing="5">
+                            <p:commandButton value=" Enregistrer " update="growl" action="#{decDCBean.saveDeclarationDeces}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </ui:define>
+
+
+        </ui:composition>
+
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed) {
+                    jQuery('#formAddDec').effect("shake", {times: 6}, 100);
+                }
+                else {
+                    location.href = args.route;
+                }
+            }
+        </script> 
+
+    </body>
+</ui:fragment>
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+		</ui:fragment>
+
+</html>

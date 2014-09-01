@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Registre des Acte de Naissance</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+             <ui:define name="content">
+
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Home" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">REGISTRE DES ACTES DE NAISSANCE</h1>
+                <div align="right">
+                <h:form>  
+                            <h:panelGrid columns="3" style="margin-bottom:1px;" cellpadding="7" >
+                                <p>Les régistres de </p>
+                                <p:selectOneMenu value="#{consultBean.selectedAnnees}">  
+                                      
+                                    <f:selectItems value="#{consultBean.annees}"/>
+                                    <f:selectItem itemLabel="Tous" itemValue="Tous" /> 
+                                    
+                                </p:selectOneMenu>
+
+                                <p:commandButton icon="ui-icon-search" update=":form:table" actionListener="#{consultBean.registre}"/> 
+                            </h:panelGrid>
+                     </h:form>
+                  </div>
+                <div class="panContent">
+                    <h:form id="form"> 
+                        <p:growl id="growl" sticky="true" />
+
+                        <div align="center">
+                            <p:dataTable id="table" var="acte" value="#{consultBean.registreCurrentYear}"  paginator="true" rows="10" rowKey="#{acte.id}" emptyMessage="Aucun d'acte dans les registres"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15" style="width:98%;" >  
+
+
+
+                                <p:column headerText="Acte n°" style="text-align: center; width:8%;" sortBy="#{acte.numero_acte}" filterBy="#{acte.numero_acte}" id="acte">  
+                                    <h:outputText value="#{acte.numero_acte}" />  
+                                </p:column>  
+ 
+
+                                <p:column headerText="Prénoms" sortBy="#{acte.prenom_enfant}" filterBy="#{acte.prenom_enfant}" id="prenom">  
+                                    <h:outputText value="#{acte.prenom_enfant}" />  
+                                </p:column>  
+
+                                <p:column headerText="Nom" sortBy="#{acte.nom_enfant}" filterBy="#{acte.nom_enfant}" id="nom">  
+                                    <h:outputText value="#{acte.nom_enfant}" />  
+                                </p:column>  
+
+                                <p:column headerText="Date de naissance" sortBy="#{acte.date_naissance_enfant}" filterBy="#{acte.date_naissance_enfant}" id="datenaiss" style="width: 10%; text-align: center;">  
+                                    <h:outputText value="#{acte.date_naissance_enfant}" />  
+                                </p:column>
+                                
+                                <p:column headerText="Lieu de naissance" sortBy="#{acte.lieu_naissance_enfant}" filterBy="#{acte.lieu_naissance_enfant}" id="lieunaiss" style="width: 10%; text-align: center;">  
+                                    <h:outputText value="#{acte.lieu_naissance_enfant}" />  
+                                </p:column> 
+                                
+                                <p:column headerText="Date de déclaration" sortBy="#{acte.date_creation}" filterBy="#{acte.date_creation}" style="width: 10%; text-align: center;">  
+                                    <h:outputText value="#{acte.date_creation}" />  
+                                </p:column> 
+
+                                <p:column style="width:4%; text-align: center;">  
+                                    <p:commandButton id="selectButton" update=":form:growl"  icon="ui-icon-search" title="Consulter" action="#{consultBean.viewActeNaissance}" 
+                                                     oncomplete="handleLoginRequest(xhr, status, args)">
+                                        <f:setPropertyActionListener value="#{acte}" target="#{consultBean.decToConsult}"/>
+                                    </p:commandButton>  
+                                </p:column> 
+                            </p:dataTable>  
+                        </div>
+                    </h:form> 
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+</ui:fragment>
+</html>

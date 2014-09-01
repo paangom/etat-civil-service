@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+	 <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title> Etat civil</title>
+    </h:head>
+    <body>
+    <div class="panContent" align="center">
+    <div align="center">
+     <p:spacer height="20" />
+    <h1>MISE A JOUR DES PARAMETRES DE CONNEXIONS</h1>
+    </div>
+		 <h:form id="form">
+		 <p:growl id="growl" sticky="true"/> 
+                    <p:panel header="INFORMATIONS">       
+                                <h:panelGrid id="matchGrid" columns="2" > 
+                                
+                                	<h:outputLabel for="loginA" value="Ancien login *: " />  
+                                    <p:inputText id="loginA" value="#{loginBean.user.userUserName}" required="true" label="Ancien login" disabled="true"/>  
+									
+									<p:spacer height="20" /><p:spacer height="20" /> 
+
+                                    <h:outputLabel for="login1" value="Nouveau login *: " />  
+                                    <p:inputText id="login1" value="#{loginBean.login}" required="true" label="Nouveau login" onmouseover="this.focus();" onkeyup="this.value=this.value.toLowerCase().trim();" validatorMessage="Le login doit moins 6 caractères">
+                                    	 <f:validateLength minimum="6" />
+                                    </p:inputText> 
+									
+									<p:spacer height="20" /><p:spacer height="20" />
+									
+									
+                                    <h:outputLabel for="pwd1" value="Nouveau mot de passe: *" />  
+            						<p:password id="pwd1" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" value="#{loginBean.pwd}" match="pwd2" label="Nouveau mot de passe" required="true" validatorMessage="Le mot de passe doit contenir moins 6 caractères.">
+            							<f:validateLength minimum="6" />
+            						</p:password>  
+  									
+  									<p:spacer height="20" /><p:spacer height="20" />
+            						
+            						<h:outputLabel for="pwd2" value="Retaper le nouveau mot de passe: *" />  
+            						<p:password id="pwd2" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" value="#{loginBean.pwd}" label="Retaper le nouveau mot de passe" required="true"/>
+  									
+  									<p:spacer height="20" /><p:spacer height="20" />
+  									
+                                </h:panelGrid>  
+  								<p:commandButton id="saveButton" value="Enregistrer" update="matchGrid growl" action="#{loginBean.verifyLogin}"/> 
+  					</p:panel>
+  					
+  			 </h:form> 
+  			 
+  			 
+		 </div> 
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+	<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+</ui:fragment>
+</html>

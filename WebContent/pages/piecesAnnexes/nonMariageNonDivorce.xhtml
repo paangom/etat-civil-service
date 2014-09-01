@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Pièces annexes</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+                      <ui:define name="content">
+               
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Accueil" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">CERTIFICAT DE NON MARIAGE ET DE NON DIVORCE</h1>
+                <div class="panContent" align="center">
+                    <h:form id="formAddDec" target="_blank">
+                        <p:growl id="growl"  life="6000" /> 
+						
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="L'INTERESSE(E)">
+                                <div align="center">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                    	
+                                        <h:outputLabel for="firstname" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname" value="#{nonMariageNonDivorce.prenom_Epouse}" required="true" requiredMessage="Champ obligatoire" label="Prénoms" />  
+
+                                        <h:outputLabel for="nom" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom" value="#{nonMariageNonDivorce.nom_Epouse}" required="true" requiredMessage="Champ obligatoire" label="NOM"/> 
+
+                                        <h:outputLabel for="dateN" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN" pattern="dd/MM/yyyy" showButtonPanel="true" required="true" requiredMessage="Champ obligatoire" effect="fadeIn" navigator="true" value="#{nonMariageNonDivorce.dateNEpouse}" maxdate="calwidget.today()" widgetVar="calwidget" />
+										
+										
+                                        <h:outputLabel for="lieuN" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN" value="#{nonMariageNonDivorce.lieu_NEpouse}" required="true" requiredMessage="Champ obligatoire" label="Lieu de naissance"/> 
+
+                                        
+                                    </h:panelGrid>
+                                </div>
+                                
+                                
+                            </p:fieldset>
+                        </h:panelGrid>
+                        
+                        
+                        	<h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="DEFUNT MARI">
+                                <div align="center">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstnameD" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstnameD" value="#{nonMariageNonDivorce.prenom_Epoux}" required="true" label="Prénoms" requiredMessage="Champ obligatoire"/>  
+
+                                        <h:outputLabel for="nomD" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nomD" value="#{nonMariageNonDivorce.nom_Epoux}" required="true" label="Nom" requiredMessage="Champ obligatoire"/> 
+
+                                        <h:outputLabel for="dateND" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateND" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" required="true" requiredMessage="Champ obligatoire" value="#{nonMariageNonDivorce.dateNEpoux}" maxdate="calwidget.today()" widgetVar="calwidget" />
+										
+										
+                                        <h:outputLabel for="lieuND" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuND" value="#{nonMariageNonDivorce.lieuNEpoux}" required="true" label="Lieu de naissance" requiredMessage="Champ obligatoire"/> 
+										<p:separator/><p:separator/><p:separator/><p:separator/>
+                                        <h:outputLabel for="dateDD" value="Date de décès" style="text-align: right;" />  
+                                        <p:calendar id="dateDD" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" required="true" requiredMessage="Champ obligatoire" value="#{nonMariageNonDivorce.dateDEpoux}" maxdate="calwidget.today()" widgetVar="calwidget" />
+										
+										
+                                        <h:outputLabel for="lieuDD" value="Lieu de décès" style="text-align: right;"/>  
+                                        <p:inputText id="lieuDD" value="#{nonMariageNonDivorce.lieuD}" required="true" label="Lieu de naissance" requiredMessage="Champ obligatoire"/> 
+                                        
+                                        <h:outputLabel for="numReg" value="Numéro acte de décès : " style="text-align: right;"/>  
+                                        <p:inputText id="numreg" value="#{nonMariageNonDivorce.numero_acteD}" required="true" label="Numéro" requiredMessage="Champ obligatoire"/> 
+
+                                        <h:outputLabel for="annee" value="Registre de l'année :" style="text-align: right;"/>  
+                                        <p:inputMask mask="9999" id="annee" value="#{nonMariageNonDivorce.annee}" required="true" label="Année" requiredMessage="Champ obligatoire"/> 
+
+                                    </h:panelGrid>
+                                </div>
+                               
+                            </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">  
+                        	<p:fieldset legend="LES TEMOINS" style="width: 97%;">
+                            	<h:panelGrid columns="2" cellpadding="5" style="width: 100%;">
+                                	<p:panel header="PREMIER TEMOIN">
+                                    	<h:panelGrid columns="2" cellpadding="6" style="width: 100%;"> 
+                                        	<h:outputLabel for="firstnameT1" value="Prénoms" style="text-align: right;" />  
+                                            <p:inputText id="firstnameT1"  label="Prenoms" value="#{nonMariageNonDivorce.prenom_T1}" required="true" requiredMessage="Champ obligatoire"/>  
+
+                                            <h:outputLabel for="nomT1" value="Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomT1" label="Nom" value="#{nonMariageNonDivorce.nom_T1}" required="true" requiredMessage="Champ obligatoire"/> 
+
+                                            <h:outputLabel for="domT1" value="Domicile" style="text-align: right;"/>  
+                                            <p:inputText id="domT1" label="Nom" value="#{nonMariageNonDivorce.domicile_T}" required="true" requiredMessage="Champ obligatoire"/> 
+                                            
+                                            
+                                            <h:outputLabel for="cniT1" value="Carte d'identité nationale" style="text-align: right;"/>  
+                                            <p:inputMask mask="9999999999999" id="professionPE"  label="Carte d'identité nationale" value="#{nonMariageNonDivorce.cni_T1}" required="true" requiredMessage="Champ obligatoire"/> 
+
+                                       </h:panelGrid>
+                                   </p:panel>
+                                                <p:panel header="SECOND TEMOIN">
+                                                    <h:panelGrid columns="2" cellpadding="6" style="width: 100%;"> 
+                                                        <h:outputLabel for="firstnameT2" value="Prénoms" style="text-align: right;" />  
+                                                        <p:inputText id="firstnameT2" label="Prenoms" value="#{nonMariageNonDivorce.prenom_T2}" required="true" requiredMessage="Champ obligatoire"/>  
+
+                                                        <h:outputLabel for="nomT2" value="Nom" style="text-align: right;"/>  
+                                                        <p:inputText id="nomT2" label="Nom" value="#{nonMariageNonDivorce.nom_T2}" required="true" requiredMessage="Champ obligatoire"/>  
+
+                                                        <h:outputLabel for="domT2" value="Domicile" style="text-align: right;"/>  
+                                            			<p:inputText id="domT2" label="Domicile" value="#{nonMariageNonDivorce.domicile_T}" required="true" requiredMessage="Champ obligatoire"/> 
+                                                        
+                                                        
+                                                        <h:outputLabel for="cniT2" value="Carte d'identé nationale" style="text-align: right;"/>  
+                                                        <p:inputMask mask="9999999999999" id="professionME"  label="Carte d'identité nationale" value="#{nonMariageNonDivorce.cni_T2}" required="true" requiredMessage="Champ obligatoire"/> 
+
+                                                    </h:panelGrid>
+                                                </p:panel>
+
+                                            </h:panelGrid>
+                                            
+                                        </p:fieldset>
+                        	</h:panelGrid>
+                        
+                        <h:panelGrid columns="1" cellspacing="5">
+                            <p:commandButton id="btnForm" update=":form, growl" oncomplete="conteneur.show()" icon="ui-icon-print" title="Impression de Certificat de non Mariage et de non Divorce" value="Certificat de non Mariage et de non Divorce"/>
+                        </h:panelGrid>
+                    </h:form>
+                    
+                    <h:form id="form" target="_blank">
+		                	<p:dialog header="Confirmation" widgetVar="conteneur" resizable="false" id="conteneurDlg" style="width:400px;" 
+		                     	showEffect="fade" hideEffect="explode" modal="true"> 
+		                     	<p:outputLabel value="Etes-vous sûr de vouloir délivré ce Certificat de non Mariage et de non Divorce ?"/> 
+		                     	<br/>
+		                     	<br/>
+		                     	<p:separator/>
+								
+		                            <f:facet name="footer">
+		                            	<div align="center">
+											<h:commandButton id="btnConteneur" onclick="conteneur.hide()" actionListener="#{nonMariageNonDivorce.save}" oncomplete="conteneur.hide()" icon="ui-icon-disk" title="Impression" value="imprimer"/> 
+		                             	</div>
+		                             </f:facet>
+		                   	</p:dialog>  
+		
+		              	</h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed) {
+                    jQuery('#formAddDec').effect("shake", {times: 6}, 100);
+                }
+                else {
+                    location.href = args.route;
+                }
+            }
+        </script> 
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+	<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+</ui:fragment>
+</html>

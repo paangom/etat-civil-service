@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Recettes</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                 <h1 align="center">LES DOCUMENTS ET PIECES D'ETAT CIVIL DELIVRES PAR LES UTILISATEURS</h1>
+                <h:form id="select">
+                <div align="right">
+                   		<h:panelGrid columns="4" style="margin-bottom:1px;" cellpadding="7" >
+                   				<p:selectOneMenu value="#{statistiques.selectJour}">  
+                                    <f:selectItem itemLabel="Jour" itemValue="" />  
+                                    <f:selectItems value="#{statistiques.jour}"/>
+                                     
+                                </p:selectOneMenu>
+                   		
+                                <p:selectOneMenu value="#{statistiques.selectMois}">  
+                                    <f:selectItem itemLabel="Mois" itemValue="" />  
+                                    <f:selectItems value="#{statistiques.mois}"/>
+                                    
+                                </p:selectOneMenu>
+                                <p:selectOneMenu value="#{statistiques.selectAnnee}">  
+                                    <f:selectItem itemLabel="Année" itemValue="" />
+                                    <f:selectItems value="#{statistiques.annees}"/> 
+                                    
+                                </p:selectOneMenu>
+
+                                <p:commandButton actionListener="#{statistiques.recette}" update=":formDataTable:pieces, :panel" icon="ui-icon-search"/> 
+                            </h:panelGrid>
+                   		
+                   		</div>
+                   		</h:form>
+                <div align="center">
+                
+                <h:panelGrid columns="1" cellpadding="5" style="width: 100%">
+                	<p:panel id="panel" header="#{statistiques.statEnCours}" style="width:100%">
+                		<h:form id="formDataTable">
+                   				<p:dataTable id="pieces" var="piece" value="#{statistiques.listPiece}" style="width: 100%"   paginator="true" rows="10"  
+                                          
+                                 	emptyMessage="Aucun document d'Etat Civil délivré."  rowsPerPageTemplate="5,10,15">  
+										
+								<p:column id="col1" headerText="Libellé" style="text-align: center;  background-color: #{piece.paiement ==true ? 'green':'red'}">  
+                                    <h:outputText value="#{piece.piecedelivred.libelle}" />  
+                                </p:column>  
+
+                                <p:column headerText="Prix" style="text-align: center; background-color: #{piece.paiement == true ? 'green':'red'}">  
+                                    <h:outputText value="#{piece.piecedelivred.prix}" />  
+                                </p:column>
+                                
+                                <p:column headerText="Paiement" style="text-align: center; background-color: #{piece.paiement == true ? 'green':'red'}">  
+                                    <h:outputText value="#{piece.paiement}" />  
+                                </p:column>
+                               
+                                <p:column headerText="Délivré par:" style="text-align: center; background-color: #{piece.paiement == true ? 'green':'red'}">  
+                                    <h:outputText value="#{piece.userdelivred.userPrenom} #{piece.userdelivred.userNom}" />  
+                                </p:column>   
+
+                                <p:column headerText="Date de la délivrance" style="text-align: center; background-color: #{piece.paiement ==true ? 'green':'red'}">  
+                                    <h:outputText value="#{piece.date_delivre}" />  
+                                </p:column> 
+                                
+                            </p:dataTable>
+                        </h:form>
+                       
+                	</p:panel>
+                </h:panelGrid>
+                </div>
+                 </div>
+            </ui:define>
+		 <style type="text/css">
+            .old {
+                background-color: #6CE26C !important;
+                background-image: none !important;
+                color: #000000 !important;
+            }
+        </style>
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+</ui:fragment>
+</html>

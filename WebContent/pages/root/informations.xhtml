@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Centre d'Etat Civil</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                <div align="center">
+                <h:panelGrid columns="1" cellpadding="5" style="width: 90%">
+                	<p:panel header="INFORMATIONS DU CENTRE" style="width:100%">
+                    <h:form id="form">
+						<p:growl id="growl" sticky="true" /> 
+
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 100%;">
+                                                            <div align="center">
+                                    
+                                    <h:panelGrid id="panel" columns="2" cellpadding="8" style="width: 100%;"> 
+                                    	<h:outputLabel for="code" value="CODE DU CENTRE" style="text-align: right;" />  
+                                        <h:outputText id="code" value="#{centreRBean.centreToConsult.centerCode}" style="font-weight: bold"/>
+                                    
+                                        <h:outputLabel for="region" value="REGION" style="text-align: right;" />  
+                                        <h:outputText id="region" value="#{centreRBean.centreToConsult.centerRegion}" style="font-weight: bold" />  
+
+                                        <h:outputLabel for="departement" value="DEPARTEMENT" style="text-align: right;"/>  
+                                        <h:outputText id="departement" value="#{centreRBean.centreToConsult.centerDepartement}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="arrondissement" value="ARRONDISSEMENT" style="text-align: right;" />  
+                                        <h:outputText id="arrondissement" value="#{centreRBean.centreToConsult.centerArrondissement}" style="font-weight: bold"/> 
+
+                                        <h:outputText value="TYPE COLLECTIVITE" />  
+                                        <h:outputText value="#{centreRBean.centreToConsult.centerCollectivite}" style="font-weight: bold"/>  
+
+
+                                        <h:outputText value="TYPE DE CENTRE" />  
+                                        <h:outputText value="#{centreRBean.centreToConsult.centerType}" style="font-weight: bold"/>
+                                        
+                                         <h:outputText value="SON CENTRE PRINCIPAL" />  
+                                        <h:outputText value="#{centreRBean.centreToConsult.mainCenter}" style="font-weight: bold"/>  
+                                        
+                                        <h:outputText value="ANNEE DES REGISTRES" />  
+                                        <h:outputText value="#{centreRBean.centreToConsult.anneeRegistre}" style="font-weight: bold"/>  
+
+
+                                        <h:outputLabel for="nomcentre" value="NOM DU CENTRE" style="text-align: right;"/>  
+                                        <h:outputText id="nomcentre" value="#{centreRBean.centreToConsult.centerName}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="adressecentre" value="ADRESSE DU CENTRE" style="text-align: right;"/>  
+                                        <h:outputText id="adressecentre" value="#{centreRBean.centreToConsult.centerAddress}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="bp" value="BOITE POSTALE" style="text-align: right;"/>  
+                                        <h:outputText id="bp"  value="#{centreRBean.centreToConsult.centerBp}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="mail" value="ADRESSE MAIL" style="text-align: right;"/>  
+                                        <h:outputText id="mail" value="#{centreRBean.centreToConsult.centerMail}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="tel" value="NUMERO TELEPHONE" style="text-align: right;"/>  
+                                        <h:outputText id="tel" value="#{centreRBean.centreToConsult.centerPhone}" style="font-weight: bold"/> 
+                                        
+                                        <p:separator/><p:separator/>
+                                        
+                                        <h:outputLabel for="nomm" value="PRENOMS DU MAIRE" style="text-align: right;"/>  
+                                        <h:outputText id="nomm"  value="#{centreRBean.centreToConsult.prenom_maire}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="prenom" value="NOM DU MAIRE" style="text-align: right;"/>  
+                                        <h:outputText id="prenom" value="#{centreRBean.centreToConsult.nom_maire}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="dateA" value="DATE D'ACCESSION A LA MAIRIE" style="text-align: right;"/>  
+                                        <h:outputText id="dateA" value="#{centreRBean.centreToConsult.acces}" style="font-weight: bold"/> 
+                                    </h:panelGrid>
+                                </div>
+                            
+                        </h:panelGrid>
+                        <div align="center">
+                            <h:panelGrid columns="1" cellspacing="5">
+                                <p:commandButton value=" MODIFIER " update=":formUpdate" oncomplete="userDialogUpdate.show()"/>
+                            </h:panelGrid>
+                        </div>
+                    </h:form>
+                    
+                     
+                </p:panel>
+                </h:panelGrid>
+                <h:form id="formUpdate">
+                            <p:dialog header="Modification de l'utilisateur" widgetVar="userDialogUpdate" resizable="false" id="userDlgUpdate"  
+                                      showEffect="fade" hideEffect="explode" modal="true">  
+
+                                <h:panelGrid id="display" columns="1">  
+
+			                                   <h:panelGrid columns="4"  cellpadding="4" style="margin:0 auto;"> 
+			                                        <h:outputLabel for="region" value="REGION" style="text-align: right;" />  
+			                                        <p:inputText id="region"  required="true" label="Région" value="#{centreBean.centreToUpdate.centerRegion}" />  
+			
+			                                        <h:outputLabel for="departement" value="DEPARTEMENT" style="text-align: right;"/>  
+			                                        <p:inputText id="departement"  required="true" label="DEPARTEMENT" value="#{centreBean.centreToUpdate.centerDepartement}"/> 
+			
+			                                        <h:outputLabel for="arrondissement" value="ARRONDISSEMENT" style="text-align: right;"/>  
+			                                        <p:inputText id="arrondissement" required="true" label="ARRONDISSEMENT" value="#{centreBean.centreToUpdate.centerArrondissement}"/> 
+			
+			                                        <h:outputText value="TYPE COLLECTIVITE" />  
+			                                        <p:selectOneMenu value="#{centreBean.centreToUpdate.centerCollectivite}">  
+			                                            <f:selectItem itemLabel="TYPE COLLECTIVITÉ?" itemValue="" />  
+			                                            <f:selectItem itemLabel="COMMUNE" itemValue="Commune" />  
+			                                            <f:selectItem itemLabel="COMMUNAUTE RURALE" itemValue="Communauté rurale" />  
+			                                        </p:selectOneMenu>
+			
+			                                        <h:outputText value="TYPE DE CENTRE" />  
+			                                        <p:selectOneMenu value="#{centreBean.centreToUpdate.centerType}">  
+			                                            <f:selectItem itemLabel="TYPE DE CENTRE?" itemValue="" />  
+			                                            <f:selectItem itemLabel="PRINCIPALE" itemValue="Principal" />  
+			                                            <f:selectItem itemLabel="SECONDAIRE" itemValue="Secondair" />  
+			                                        </p:selectOneMenu>
+			                                        
+			                                        <h:outputText value="SON CENTRE PRINCIPAL" />
+			                                        <p:inputMask value="#{centreBean.centreToUpdate.mainCenter}" maxlength="4" mask="9999" required="true"/>
+			                                        
+			                                        <h:outputText value="ANNEES DES REGISTRES" />
+			                                        <p:inputMask value="#{centreBean.centreToUpdate.anneeRegistre}" maxlength="4" mask="9999" required="true"/>  
+			
+			                                        <h:outputLabel for="nomcentre" value="NOM DU CENTRE" style="text-align: right;"/>  
+			                                        <p:inputText id="nomcentre"  required="true" label="Nom du cnetre" value="#{centreBean.centreToUpdate.centerName}"/> 
+			
+			                                        <h:outputLabel for="adressecentre" value="ADRESSE DU CENTRE" style="text-align: right;"/>  
+			                                        <p:inputText id="adressecentre" label="Adresse du centre" value="#{centreBean.centreToUpdate.centerAddress}"/> 
+			
+			                                        <h:outputLabel for="bp" value="BOITE POSTALE" style="text-align: right;"/>  
+			                                        <p:inputMask mask="99999" maxlength="5" id="bp" label="BP" value="#{centreBean.centreToUpdate.centerBp}"/> 
+			
+			                                        <h:outputLabel for="mail" value="ADRESSE MAIL" style="text-align: right;"/>  
+			                                        <p:inputText id="mail" label="Adresse mail" value="#{centreBean.centreToUpdate.centerMail}"/> 
+			
+			                                        <h:outputLabel for="tel" value="NUMERO TELEPHONE" style="text-align: right;"/>  
+			                                        <p:inputText id="tel"  required="true" label="TEL" value="#{centreBean.centreToUpdate.centerPhone}"/> 
+			                                        
+			                                         
+			                                        <p:separator/><p:separator/> <p:separator/><p:separator/>
+			                                        <h:outputLabel for="prenom" value="PRENOMS DU MAIRE" style="text-align: right;"/>  
+			                                        <p:inputText id="prenom" label="PRENOMS DU MAIRE" value="#{centreBean.centreToUpdate.prenom_maire}" required="true"/> 
+			
+			                                        <h:outputLabel for="nomm" value="NOM DU MAIRE" style="text-align: right;"/>  
+			                                        <p:inputText id="nomm" label="NOM DU MAIRE" value="#{centreBean.centreToUpdate.nom_maire}" required="true"/> 
+			
+			                                        <h:outputLabel for="dateA" value="DATE D'ACCES A LA MAIRIE" style="text-align: right;"/>  
+			                                        <p:calendar id="datedc" effect="fadeIn" navigator="true" value="#{centreBean.centreToUpdate.accesD}" required="true" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+			                                        
+			                                    </h:panelGrid>
+			                           
+			                        <h:panelGrid columns="1" cellpadding="5" style="width: 100%;">
+			                            <p:fieldset legend="A PROPOS DU CENTRE">
+			                                <div align="center">
+			                                        <p:fieldset>
+			                                            <div align="center">
+			                                                <p:inputTextarea value="#{centreBean.centreToUpdate.description}"  rows="15" cols="160" style="width: 100%; " label="A propos du centre" />  
+			                                            </div>
+			                                        </p:fieldset> 
+			                                    
+			                                    
+			                                </div>
+			                            </p:fieldset>
+			                        </h:panelGrid>  
+
+                                    <f:facet name="footer">
+                                        <p:separator/>
+                                        <p:commandButton id="btnUpdateeOK"  action="#{centreBean.updateConfigurationCentre}" update=":form:panel, :form:growl" oncomplete="userDialogUpdate.hide()" icon="ui-icon-disk" title="Enregistrer les modifications" value="Enregistrer"/> 
+                                        <p:commandButton id="btnUpdateCancel" oncomplete="userDialogUpdate.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+                                    </f:facet>
+                                </h:panelGrid>  
+
+                            </p:dialog>  
+
+                        </h:form> 
+                </div>
+                 </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+</ui:fragment>
+</html>

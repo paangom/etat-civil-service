@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Profil de l'utilisateur</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Home" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <div class="panContent" align="center">
+                    <h:form id="formAddDec">
+
+                        <p:growl id="growl" sticky="true" /> 
+
+                        <h:panelGrid id="panel" columns="1" cellpadding="5" style="width: 70%;">
+                            <p:fieldset legend="INFORMATIONS SUR VOTRE PROFIL">
+
+                                <div align="center">
+
+                                    <h:panelGrid columns="2" cellpadding="8" style="width: 60%;"> 
+                                        <h:outputLabel for="prenom" value="PRENOMS" style="text-align: right;" />  
+                                        <h:outputText id="prenom" value="#{userBean.userConnect.userPrenom}" style="font-weight: bold" />  
+
+                                        <h:outputLabel for="nom" value="NOM" style="text-align: right;"/>  
+                                        <h:outputText id="nom" value="#{userBean.userConnect.userNom}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel  value="SEXE" style="text-align: right;"/>  
+                                        <h:outputText  value="#{userBean.userConnect.sexe}" style="font-weight: bold"/> 
+
+                                        <h:outputLabel for="numCni" value="NUMERO D'IDENTITE NATIONALE" style="text-align: right;" />  
+                                        <h:outputText id="numCni" value="#{userBean.userConnect.cni}" style="font-weight: bold"/> 
+                                        
+                                        <h:outputText value="ADRESSE" />  
+                                        <h:outputText value="#{userBean.userConnect.userAddress}" style="font-weight: bold"/>  
+
+
+                                        <h:outputLabel  value="NUMERO TELEPHONE" style="text-align: right;"/>  
+                                        <h:outputText   value="#{userBean.userConnect.userNumTel}" style="font-weight: bold"/> 
+                                        
+                                        <h:outputLabel for="numMat" value="E-MAIL" style="text-align: right;" />  
+                                        <h:outputText id="numMat" value="#{userBean.userConnect.userMail}" style="font-weight: bold"/> 
+                                        
+                                        
+                                        <h:outputText value="NOM D'UTILISATEUR" />  
+                                        <h:outputText value="#{userBean.userConnect.userUserName}" style="font-weight: bold"/>  
+
+
+                                        <h:outputLabel  value="PROFIL" style="text-align: right;"/>  
+                                        <h:outputText  value="#{userBean.userConnect.userProfil}" style="font-weight: bold"/> 
+
+                                        
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            <div align="center">
+                            <h:panelGrid columns="1" cellspacing="5">
+                            	<div align="left">
+		                       		 <p:commandButton id="btnUpdateUser" update=":formUpdateUser" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modification de votre profil" value="Modifier"/> 
+		                    	</div>
+                            </h:panelGrid>
+                            </div>
+                        </h:panelGrid>
+                        
+                    </h:form>
+                    <h:form id="formUpdateUser">
+                            <p:dialog header="Modification de votre profil" widgetVar="userDialogUpdate" resizable="false" id="userDlgUpdate"  
+                                      showEffect="fade" hideEffect="explode" modal="true">  
+
+                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                                    <h:outputText value="Prénoms : " />  
+                                    <p:inputText value="#{userBean.userConnect.userPrenom}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Nom : " />  
+                                    <p:inputText value="#{userBean.userConnect.userNom}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Sexe : " />  
+                                    <p:inputText value="#{userBean.userConnect.sexe}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    
+                                    
+                                    <h:outputText value="Téléphone : " />  
+                                    <p:inputText value="#{userBean.userConnect.userNumTel}" requiredMessage="Champ obligatoire" required="true"/>
+                                    
+                                    <h:outputText value="Adresse : " />  
+                                    <p:inputText value="#{userBean.userConnect.userAddress}" requiredMessage="Champ obligatoire" required="true"/>
+                                    
+                                    <h:outputText value="E-mail : " />  
+                                    <p:inputText value="#{userBean.userConnect.userMail}" />
+                                    
+                                    <h:outputText value="Ancien nom d'utilisateur : " />  
+                                    <p:inputText value="#{userBean.ancienUserName}" required="true" requiredMessage="Champ obligatoire"
+                                    	onmouseover="this.focus();" onkeyup="this.value=this.value.toLowerCase().trim();" validatorMessage="Le login doit moins 6 caractères">
+                                    	<f:validateLength minimum="6" />
+                                    </p:inputText> 
+                                    
+                                     <h:outputText value="Nouveau nom d'utilisateur : " />  
+                                    <p:inputText value="#{userBean.userToCreate.userUserName}" required="true" requiredMessage="Champ obligatoire"
+                                    	onmouseover="this.focus();" onkeyup="this.value=this.value.toLowerCase().trim();" validatorMessage="Le login doit moins 6 caractères">
+                                    	<f:validateLength minimum="6" />
+                                    </p:inputText>  
+
+                                    <h:outputLabel for="pwd1" value="Nouveau mot de passe: *" />  
+            						<p:password id="pwd1" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" value="#{userBean.userToCreate.userPassword}" match="pwd2" label="Nouveau mot de passe" required="true"  validatorMessage="Le mot de passe doit contenir moins 6 caractères qui doivent être: en majuscules, miniscules et caractères spéciaux.">
+            							<f:validateLength minimum="6" />
+            						</p:password>  
+            						
+            						<h:outputLabel for="pwd2" value="Retaper le nouveau mot de passe: *" />  
+            						<p:password id="pwd2" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" value="#{userBean.userToCreate.userPassword}" label="Retaper le nouveau mot de passe" required="true" /> 
+
+                                    <f:facet name="footer">
+                                        <p:separator/>
+                                        <p:commandButton id="btnUpdateeOK" update=":formAddDec:panel, :formAddDec:growl" actionListener="#{userBean.updateProfil}" oncomplete="userDialogUpdate.hide()" icon="ui-icon-disk" title="Sauvegarder" value="Sauver"/> 
+                                        <p:commandButton id="btnUpdateCancel" oncomplete="userDialogUpdate.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+                                    </f:facet>
+                                </h:panelGrid>  
+
+                            </p:dialog>  
+
+                        </h:form>
+                   
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+		</ui:fragment>
+		
+		<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+		</ui:fragment>
+</html>

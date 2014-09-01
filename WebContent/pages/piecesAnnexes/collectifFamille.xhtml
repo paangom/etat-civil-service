@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Pièces annexes</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+                      <ui:define name="content">
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Accueil" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">CERTIFICAT DE VIE COLLECTIF ET DE CHARGE DE FAMILLE</h1>
+                <div class="panContent" align="center">
+                    <h:form id="formAddDec" target="_blank">
+                        <p:growl id="growl" life="6000" /> 
+						
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="PARENT">
+                                
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                    
+                                        <h:outputLabel for="firstname" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname" value="#{vieCollectifChargefamille.prenom_P}" required="true" label="Prénoms" />  
+
+                                        <h:outputLabel for="nom" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom" value="#{vieCollectifChargefamille.nom_P}" required="true" label="Nom"/> 
+									
+                                        
+                                    </h:panelGrid>
+                                
+                            </p:fieldset>
+                            
+                            <p:fieldset legend="LES ENFANTS">
+                                    <p:fieldset legend="1">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname1" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname1" value="#{vieCollectifChargefamille.prenom1}" required="true" label="Prénoms" />  
+
+                                        <h:outputLabel for="nom1" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom1" value="#{vieCollectifChargefamille.nom1}" required="true" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN1" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN1" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date1}" maxdate="calwidget.today()" widgetVar="calwidget" required="true"/>
+                                        
+                                        <h:outputLabel for="lieuN1" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN1" value="#{vieCollectifChargefamille.lieu1}" required="true" label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="2">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname2" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname2" value="#{vieCollectifChargefamille.prenom2}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom2" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom2" value="#{vieCollectifChargefamille.nom2}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN2" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN2" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date2}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN2" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN2" value="#{vieCollectifChargefamille.lieu2}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="3">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname3" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname3" value="#{vieCollectifChargefamille.prenom3}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom3" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom3" value="#{vieCollectifChargefamille.nom3}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN3" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN3" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date3}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN3" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN3" value="#{vieCollectifChargefamille.lieu3}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="4">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname4" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname4" value="#{vieCollectifChargefamille.prenom4}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom4" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom4" value="#{vieCollectifChargefamille.nom4}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN4" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN4" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date4}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN4" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN4" value="#{vieCollectifChargefamille.lieu4}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="5">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname5" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname5" value="#{vieCollectifChargefamille.prenom5}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom5" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom5" value="#{vieCollectifChargefamille.nom5}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN5" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN5" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date5}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN5" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN5" value="#{vieCollectifChargefamille.lieu5}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="6">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname6" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname6" value="#{vieCollectifChargefamille.prenom6}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom6" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom6" value="#{vieCollectifChargefamille.nom6}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN6" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN6" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date6}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN6" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN6" value="#{vieCollectifChargefamille.lieu6}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset >
+                                    <br/>
+                                    <p:fieldset legend="7">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname7" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname7" value="#{vieCollectifChargefamille.prenom7}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom7" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom7" value="#{vieCollectifChargefamille.nom7}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN7" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN7" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date7}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN7" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN7" value="#{vieCollectifChargefamille.lieu7}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="8">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname8" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname8" value="#{vieCollectifChargefamille.prenom8}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom8" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom8" value="#{vieCollectifChargefamille.nom8}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN8" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN8" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date8}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN8" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN8" value="#{vieCollectifChargefamille.lieu8}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                                    <br/>
+                                    <p:fieldset legend="9">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="firstname9" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="firstname9" value="#{vieCollectifChargefamille.prenom9}"  label="Prénoms" />  
+
+                                        <h:outputLabel for="nom9" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom9" value="#{vieCollectifChargefamille.nom9}" label="Nom"/> 
+
+                                        <h:outputLabel for="dateN9" value="Date de naissance" style="text-align: right;" />  
+                                        <p:calendar id="dateN9" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fadeIn" navigator="true" value="#{vieCollectifChargefamille.date2}" maxdate="calwidget.today()" widgetVar="calwidget" />
+                                        
+                                        <h:outputLabel for="lieuN9" value="Lieu de naissance" style="text-align: right;"/>  
+                                        <p:inputText id="lieuN9" value="#{vieCollectifChargefamille.lieu9}"  label="Lieu de niassance"/> 
+                                        
+                                    </h:panelGrid>
+                                    </p:fieldset>
+                               
+                            </p:fieldset>
+                            <p:fieldset legend="INFORMATIONS COMPLEMENTAIRES">
+                                    <h:panelGrid columns="2" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="degre" value="Degré de parenté" style="text-align: right;" />  
+                                        <p:inputText id="degre" value="#{vieCollectifChargefamille.degre}" required="true" label="Degré de parenté" />  
+
+                                        <h:outputLabel for="dom" value="Domicile des enfants" style="text-align: right;"/>  
+                                        <p:inputText id="dom" value="#{vieCollectifChargefamille.dom}" required="true" label="Domicile"/> 
+
+                                    </h:panelGrid>
+                           </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellspacing="5">
+                            <p:commandButton id="btnForm" update=":form, growl" oncomplete="conteneur.show()" icon="ui-icon-print" title="Impression de Certificat de Vie Collectif et de Charge de Famille" value="Certificat de Vie Collectif et de Charge de Famille"/>
+                        </h:panelGrid>
+                    </h:form>
+                    
+                    <h:form id="form" target="_blank">
+		                	<p:dialog header="Confirmation" widgetVar="conteneur" resizable="false" id="conteneurDlg" style="width:400px;" 
+		                     	showEffect="fade" hideEffect="explode" modal="true"> 
+		                     	<p:outputLabel value="Etes-vous sûr de vouloir délivré ce Certificat de Vie Collectif et de Charge de Famille ?"/> 
+		                     	<br/>
+		                     	<br/>
+		                     	<p:separator/>
+								
+		                            <f:facet name="footer">
+		                            	<div align="center">
+											<h:commandButton id="btnConteneur" onclick="conteneur.hide()" actionListener="#{vieCollectifChargefamille.save}" oncomplete="conteneur.hide()" icon="ui-icon-disk" title="Impression" value="imprimer"/> 
+		                             	</div>
+		                             </f:facet>
+		                   	</p:dialog>  
+		
+		              	</h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed) {
+                    jQuery('#formAddDec').effect("shake", {times: 6}, 100);
+                }
+                else {
+                    location.href = args.route;
+                }
+            }
+        </script> 
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+	<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+</ui:fragment>
+</html>

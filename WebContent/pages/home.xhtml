@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+    	<link rel="shortcut icon" href="/home.png" type="image/x-icon"/>
+		<link rel="icon" href="/home.png" type="image/x-icon"/>
+        <title>Accueil</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                       
+                        <marquee><b><h:outputText value="BIENVENUE DANS LE CENTRE D'ETAT-CIVIL DE #{userBean.userConnect.centre.centerName}" style="font-size:26px;"/></b></marquee>
+                        <br />
+                        <br />
+                        <br />
+                    
+                    <div class="contenu">
+                        <h:form id="papa" prependId="false">
+                        <p:growl id="growl" sticky="true" />
+                            <h:panelGrid columns="1" cellpadding="10" style="width: 100%;"> 
+
+                                <p:panel header="A propos du Centre" style="align-text:top; width:100%; font-size:12px">  
+                                    <h:outputText value="#{userBean.userConnect.centre.description}" />  
+                                </p:panel> 
+								
+                            </h:panelGrid>
+                            <p:separator/>
+                            <h:panelGrid columns="1" cellpadding="10" style="width: 100%;">
+                            	<p:panel header="Centre d'Etat Civil de #{userBean.userConnect.centre.centerName}" style="align-text:top ; width:100%; font-size:12px;" >  
+                                     
+									    <p:growl id="growl1" sticky="true" />
+									    <div align="center">  
+  										<h:panelGrid columns="4" cellpadding="8">
+	                                        <h:outputLabel for="region" value="Région : " style="text-align: right;" />  
+	                                        <h:outputText id="region" value="#{userBean.userConnect.centre.centerRegion}" style="font-weight:bold; text-align: left;"/>
+	
+	                                        <h:outputLabel for="departement" value="Département" style="text-align: right;" />  
+	                                        <h:outputText id="departement" value="#{userBean.userConnect.centre.centerDepartement}" style="font-weight:bold;"/>
+	                                        
+	                                        <h:outputLabel for="arrond" value="Arrondissement : " style="text-align: right;" />  
+	                                        <h:outputText id="arrond" value="#{userBean.userConnect.centre.centerArrondissement}" style="font-weight:bold;"/>
+	
+	                                        <h:outputLabel for="com" value="#{userBean.userConnect.centre.centerCollectivite}" style="text-align: right;" />  
+	                                        <h:outputText id="com" value="#{userBean.userConnect.centre.commune}" style="font-weight:bold;"/>
+	                                        
+	                                        <h:outputLabel for="type" value="Type de centre : " style="text-align: right;" />  
+	                                        <h:outputText id="type" value="#{userBean.userConnect.centre.centerType}" style="font-weight:bold;"/>
+	
+	                                        <h:outputLabel for="code" value="Code du centre" style="text-align: right;" />  
+	                                        <h:outputText id="code" value="#{userBean.userConnect.centre.centerCode}" style="font-weight:bold;"/>
+	                                        
+	                                        <h:outputLabel for="address" value="Adresse : " style="text-align: right;" />  
+	                                        <h:outputText id="address" value="#{userBean.userConnect.centre.centerAddress}" style="font-weight:bold;"/>
+	
+	                                        <h:outputLabel for="tel" value="Téléphone" style="text-align: right;" />  
+	                                        <h:outputText id="tel" value="#{userBean.userConnect.centre.centerPhone}" style="font-weight:bold;"/>
+	                                        
+	                                        <h:outputLabel for="email" value="Courriel : " style="text-align: right;" />  
+	                                        <h:outputText id="email" value="#{userBean.userConnect.centre.centerMail}" style="font-weight:bold;"/>
+	
+	                                        <h:outputLabel for="bp" value="Boite postale" style="text-align: right;" />  
+	                                        <h:outputText id="bp" value="#{userBean.userConnect.centre.centerBp}" style="font-weight:bold;"/>
+	
+	                                        <h:outputLabel for="mairie" value="Maire : " style="text-align: right;" />  
+	                                        <h:outputText id="mairie" value="#{userBean.userConnect.centre.prenom_maire} #{userBean.userConnect.centre.nom_maire}" style="font-weight:bold;"/>
+	
+	                                        <h:outputLabel for="mandat" value="Mandat : " style="text-align: right;" />  
+	                                        <h:outputText id="mandat" value="#{centreBean.mandat}" style="font-weight:bold;"/>
+	                                        
+	                                        <h:outputLabel for="population" value="Population : " style="text-align: right;" />  
+	                                        <h:outputText id="population" value="#{consultBean.population} habitants" style="font-weight:bold;"/>
+	                                    </h:panelGrid>  
+  
+									   </div>
+                                </p:panel>
+                            
+                            </h:panelGrid>
+                            <p:separator/>
+                            <ui:fragment rendered="#{userBean.profilCon eq false}">
+                             <h:panelGrid columns="1" cellpadding="10" style="width: 100%;"> 
+                             	<p:panel header="Pourcentage des registres" style="align-text:top ; width:100%; font-size:12px;">
+                             	<div align="center">
+                             	<p:pieChart id="custom" value="#{statistiques.pieModel}" legendPosition="e" fill="false" showDataLabels="true"  
+               								  style="width:50%;" sliceMargin="5" diameter="200" />
+               					</div>
+               					</p:panel>
+               					
+                             </h:panelGrid>
+                            </ui:fragment>
+                        </h:form>
+                        
+                        
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+	<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+</ui:fragment>
+</html>

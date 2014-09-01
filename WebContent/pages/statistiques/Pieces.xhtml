@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Statistiques</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Home" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">STATISTIQUES DES DOCUMENTS D'ETAT CIVIL ET PIECES ANNEXES </h1>
+                <div class="panContent" align="center">
+                <br></br>
+                <h:form id="pa">
+                <div align="right">
+                   		<h:panelGrid columns="4" style="margin-bottom:1px;" >
+                   				<p:selectOneMenu value="#{statistiques.selectJour}" >  
+                                    <f:selectItem itemLabel="Jour" itemValue="" />  
+                                    <f:selectItems value="#{statistiques.jour}"/>
+                                     
+                                </p:selectOneMenu>
+                   		
+                                <p:selectOneMenu value="#{statistiques.selectMois}">  
+                                    <f:selectItem itemLabel="Mois" itemValue="" />  
+                                    <f:selectItems value="#{statistiques.mois}"/>
+                                    
+                                </p:selectOneMenu>
+                                <p:selectOneMenu value="#{statistiques.selectAnnee}">  
+                                    <f:selectItem itemLabel="Année" itemValue="" />
+                                    <f:selectItems value="#{statistiques.annees}"/> 
+                                    
+                                </p:selectOneMenu>
+
+                                <p:commandButton action="#{statistiques.pieces}" update=":papa" icon="ui-icon-search"/> 
+                            </h:panelGrid>
+                   		
+                   		</div>
+                   		</h:form>
+                   <h:form id="papa" prependId="false">
+                   	
+                        <p:growl id="growl" sticky="true" />
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                        <p:fieldset legend="#{statistiques.statEnCours}" style=" width:100%;">
+                            <h:panelGrid  columns="2" cellpadding="10" style=" width:100%;"> 
+
+                                		<h:outputLabel for="coutume" value="Attestation de coutume" style="text-align: right;" />  
+                                        <h:outputText id="coutume" value="#{statistiques.coutume}" style="font-weight:bold;"/>  
+
+                                        <h:outputLabel for="nonExistance" value="Attestation de non existance" style="text-align: right;"/>  
+                                        <h:outputText id="nonExistance" value="#{statistiques.nonExistence}" style="font-weight:bold;"/>
+
+                                        <h:outputLabel for="residence" value="Attestation de résidence" style="text-align: right;" />  
+                                        <h:outputText id="residence"  value="#{statistiques.residence}" style="font-weight:bold;" />
+
+                                        <h:outputLabel for="celibat" value="Certificat de celibat" style="text-align: right;" />  
+                                        <h:outputText id="celibat" value="#{statistiques.celibat}" style="font-weight:bold;"/>
+
+                                        <h:outputLabel for="individualite" value="Certificat d'individualité" style="text-align: right;"/>  
+                                        <h:outputText id="individualite" value="#{statistiques.individualite}" style="font-weight:bold;"/> 
+
+                                        <h:outputLabel for="nonDNSC" value="Certificat de non divorce, de non séparation de corps" style="text-align: right;" />  
+                                        <h:outputText id="nonDNSC" value="#{statistiques.nonDNS}" style="font-weight:bold;"/>
+                                        
+                                        <h:outputLabel for="nonInscription" value="Certificat de non inscription" style="text-align: right;" />  
+                                        <h:outputText id="nonInscription" value="#{statistiques.nonInscription}" style="font-weight:bold;"/>  
+
+                                        <h:outputLabel for="nonMND" value="Certificat de non mariage, de non divorce" style="text-align: right;"/>  
+                                        <h:outputText id="nonMND" value="#{statistiques.nonDNM}" style="font-weight:bold;"/>
+
+                                        <h:outputLabel for="nonMNR" value="Certificat de non mariage, de non remariage" style="text-align: right;" />  
+                                        <h:outputText id="nonMNR"  value="#{statistiques.nonDNRM}" style="font-weight:bold;" />
+
+                                        <h:outputLabel for="nonInsM" value="Certificat de non inscription de mariage" style="text-align: right;" />  
+                                        <h:outputText id="nonInsM" value="#{statistiques.nonInscripM}" style="font-weight:bold;"/>
+
+                                        <h:outputLabel for="collectif" value="Certificat de vie collectif" style="text-align: right;"/>  
+                                        <h:outputText id="collectif" value="#{statistiques.vieCollect}" style="font-weight:bold;"/> 
+
+                                        <h:outputLabel for="vieColFam" value="Certificat de vie collectif, de charge de famille" style="text-align: right;" />  
+                                        <h:outputText id="vieColFam" value="#{statistiques.vieCollectFam}" style="font-weight:bold;"/>  
+                                		
+                                		<h:outputLabel for="vieInd" value="Certificat de vie individuel" style="text-align: right;" />  
+                                        <h:outputText id="vieInd" value="#{statistiques.vieIndiv}" style="font-weight:bold;"/>
+
+                                        <h:outputLabel for="vieIndFam" value="Certificat de vie individuel, de charge de famille" style="text-align: right;"/>  
+                                        <h:outputText id="vieIndFam" value="#{statistiques.vieIndivFam}" style="font-weight:bold;"/> 
+
+                                        <h:outputLabel for="permis" value="Permis d'inhumation" style="text-align: right;" />  
+                                        <h:outputText id="permis" value="#{statistiques.permis}" style="font-weight:bold;"/>  
+                                
+                                 
+                            </h:panelGrid>
+                         </p:fieldset>
+                            
+                        </h:panelGrid>
+                        
+                        </h:form>
+                   
+                   
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+	<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+</ui:fragment>
+</html>

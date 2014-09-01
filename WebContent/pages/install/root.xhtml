@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Creation du super utilisateur</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+                <div class="breadcrumb">
+                    
+                </div>
+                <h1 align="center">CREATION DU SUPER UTILISATION</h1>
+                <div class="panContent" align="center">
+                    <h:form id="formAddDec"> 
+                        <p:growl id="growl" life="3000"/>
+
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS DE L'UTILISATEUR">
+                                <div align="center">
+                                    <h:panelGrid columns="2" cellpadding="6" style="width: 80%;"> 
+                                        <h:outputLabel for="prenom" value="Prénoms" style="text-align: right;" />  
+                                        <p:inputText id="prenom" value="#{userBean.userToCreate.userPrenom}" required="true" label="Prénoms" placeholder="Prénoms de root"/>  
+
+                                        <h:outputLabel for="nom" value="Nom" style="text-align: right;"/>  
+                                        <p:inputText id="nom" value="#{userBean.userToCreate.userNom}" required="true" label="Nom" placeholder="Nom de root"/> 
+
+                                        <h:outputLabel for="sexe" value="Sexe" style="text-align: right;" />  
+                                        <p:selectOneRadio id="sexe" value="#{userBean.userToCreate.sexe}" >  
+                                            <f:selectItem itemLabel="Masculin " itemValue="Masculin" />  
+                                            <f:selectItem itemLabel="Féminin " itemValue="Féminin" />  
+                                        </p:selectOneRadio>
+                                        
+                                        
+                                        <h:outputLabel for="cni" value="Numéro d'identification " style="text-align: right;"/>  
+                                        <p:inputMask id="cni" mask="9999999999999" value="#{userBean.userToCreate.cni}" required="true" label="Numéro d'identification" placeholder="Numéro d'identification"/>
+                                        
+                                        <h:outputLabel for="Adresse" value="Adresse" style="text-align: right;"/>  
+                                        <p:inputText id="Adresse" value="#{userBean.userToCreate.userAddress}" required="true" label="Adresse" placeholder="Adresse de root"/>
+                                        
+                                        <h:outputLabel for="tel" value="Téléphone" style="text-align: right;"/>  
+                                        <p:inputMask mask="(+221) 99 999 99 99" id="tel" value="#{userBean.userToCreate.userNumTel}" required="true" label="Téléphone" placeholder="Téléphone de root"/>
+                                        
+                                        <h:outputLabel for="email" value="E-mail" style="text-align: right;"/>  
+                                        <p:inputText id="email" value="#{userBean.userToCreate.userMail}"  label="E-mail" placeholder="Courriel de root"/> 
+                                        
+                                        
+                                        <h:outputLabel for="user1" value="Votre nom d'utilisateur" style="text-align: right;"/>  
+                                        <p:inputText id="user1" value="#{userBean.userToCreate.userUserName}" required="true" label="Votre nom d'utilisateur" 
+                                        	placeholder="NOM D'UTILISATEUR" onmouseover="this.focus();" onkeyup="this.value=this.value.toLowerCase().trim();" validatorMessage="Le login doit moins 6 caractères">
+                                        	<f:validateLength minimum="6" />
+                                        </p:inputText>
+                                        
+                                        <h:outputLabel for="pwd1" value="Votre mot de passe" style="text-align: right;"/>  
+                                        <p:password id="pwd1" value="#{userBean.userToCreate.userPassword}" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" required="true" match="pwd2" label="Votre mot de passe" placeholder="Mot de passe" validatorMessage="Le mot de passe doit contenir moins 6 caractères.">
+                                        	<f:validateLength minimum="6" />
+                                        	
+                                        </p:password>
+                                        
+                                        <h:outputLabel for="pwd2" value="Retaper votre mot de passe" style="text-align: right;"/>  
+                                        <p:password id="pwd2" value="#{userBean.userToCreate.userPassword}" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" required="true" label="Retaper votre mot de passe" placeholder="Retaper mot de passe"/>
+                                        
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        
+                        
+                        <h:panelGrid columns="1" cellspacing="5">
+                            <p:commandButton value="Enregistrer" update="growl" action="#{userBean.saveFirstUser}" />
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed) {
+                    jQuery('#formAddDec').effect("shake", {times: 6}, 100);
+                }
+                else {
+                    location.href = args.route;
+                }
+            }
+        </script> 
+    </body>
+</html>

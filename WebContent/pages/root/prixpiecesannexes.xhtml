@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Définition des prix</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                <div align="center">
+                <h:panelGrid columns="1" cellpadding="5" style="width: 90%">
+                	<p:panel header="Redéfinition des prix des pièces et documents d'Etat Civil" style="width:100%">
+                		<h:form id="formDataTable">
+                		<p:growl id="growl" sticky="true" />
+                   				<p:dataTable id="pieces" var="piece" value="#{piecesBean.allPieces}" style="width: 100%" editable="true" editMode="cell" widgetVar="pieceTable">  
+								
+								<p:ajax event="cellEdit" listener="#{piecesBean.updatePieces}" update=":formDataTable:growl" />
+								<p:column headerText="Libellé" style="text-align: center;">  
+                                    <h:outputText value="#{piece.libelle}" />  
+                                    
+                                </p:column>  
+
+                                <p:column headerText="Prix (en FCFA)" style="text-align: center;" width="20%">  
+                                    <p:cellEditor>  
+						                <f:facet name="output"><h:outputText value="#{piece.prix}" /></f:facet>  
+						            	<f:facet name="input"><p:inputText id="prix" value="#{piece.prix}" /></f:facet> 
+						            	 
+						           	</p:cellEditor>
+                                </p:column>
+                                
+                                <p:column headerText="Objectif" style="text-align: center;" width="25%">  
+                                    <h:outputText value="#{piece.objectif}" />  
+                                </p:column>  
+                                
+
+                            </p:dataTable>
+                        </h:form>  
+                	</p:panel>
+                </h:panelGrid>
+                 </div>
+                 </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+</ui:fragment>
+</html>

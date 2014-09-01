@@ -1,0 +1,404 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Déclaration d'Acte de Mariage</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+           <ui:define name="content">
+                
+                <div class="breadcrumb">
+                    <h:form>
+                        <p:breadCrumb>
+                            <p:menuitem value="Home" url="#{menuBean.home}"/>
+                        </p:breadCrumb>
+                    </h:form>
+                </div>
+                <h1 align="center">DECLARATION DE MARIAGE</h1>
+                <div class="panContent" align="center">
+                    <h:form id="formAddDec">
+                        <p:growl id="growl" sticky="true" />
+
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS DU MARIAGE">
+                                <div align="center">
+                                    <h:panelGrid columns="4" cellpadding="6" style="width: 80%;">
+                                    	<h:outputLabel value="Date du mariage" />   
+                                        <p:calendar effect="fadeIn" navigator="true" placeholder="Date du mariage" title="Date du mariage" required="true" value="#{decAMBean.decToAdd.dateMariage}" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+                                        
+                                        <h:outputLabel for="heureM" value="Heure du mariage"  style="text-align: right;" />  
+                                        <p:calendar id="heureM"  pattern="HH:mm" timeOnly="true" value="#{decAMBean.decToAdd.heureMariage}" placeholder="Heure du mariage" title="Heure du mariage" required="true">
+                                            <f:convertDateTime type="time"  timeStyle="short" pattern="HH:mm" />
+                                        </p:calendar>
+                                    	
+                                        <h:outputLabel for="lieuM" value="Lieu du mariage" style="text-align: right;" />  
+                                        <p:inputText id="lieuM"  required="true" label="Lieu du mariage" placeholder="Lieu du mariage" title="Lieu du mariage" value="#{decAMBean.decToAdd.lieu_Mariage}" />
+                                        
+                                        <h:outputLabel for="type" value="Type mariage" style="text-align: right;" />  
+                                        <p:selectOneRadio id="type" value="#{decAMBean.decToAdd.type_Mariage}" required="true">  
+                                            <f:selectItem itemLabel="Célébré " itemValue="Célébré" />  
+                                            <f:selectItem itemLabel="Constaté " itemValue="Constaté" />  
+                                        </p:selectOneRadio>
+                                        
+                                         <h:outputLabel for="dot" value="Dot"/>
+                                        <p:inputText id="dot" label="Dot" value="#{decAMBean.decToAdd.dot_Mariage}" placeholder="Dot du mariage (en FCFA)" title="Dot du mariage (en FCFA)" required="true"/>
+                                        
+                                        <h:outputLabel value="Genre" />
+                                        <p:selectOneMenu value="#{decAMBean.decToAdd.genre_Mariage}" required="true">  
+                                            <f:selectItem itemLabel="Option" itemValue="" />  
+                                            <f:selectItem itemLabel="Monogamie" itemValue="Monogamie" />  
+                                            <f:selectItem itemLabel="Polygamie" itemValue="Polygamie" />   
+                                        </p:selectOneMenu>
+
+
+                                        <h:outputLabel value="Régime matrimonial" />
+                                        <p:selectOneMenu value="#{decAMBean.decToAdd.regime_Mariage}" required="true" >  
+                                            <f:selectItem itemLabel="Régime matrimonial"/>  
+                                            <f:selectItem itemLabel="Partage de bien" itemValue="Partage de biens" />  
+                                            <f:selectItem itemLabel="Communauté de bien" itemValue="Communauté de biens" />   
+                                        </p:selectOneMenu>
+
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset> 
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS SUR L'EPOUX" >
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="5" style="width: 95%;">
+                                        <p:fieldset legend="LE MARI" style="width: 97%;">
+                                            <h:panelGrid columns="4" cellpadding="6" style="width: 100%;" > 
+                                                <h:outputLabel for="firstname" value="Prénoms" style="text-align: right;" />  
+                                                <p:inputText id="firstname"  required="true" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Epoux}" placeholder="Prénoms de l'époux" title="Prénoms de l'époux"/>  
+
+                                                <h:outputLabel for="nom" value="Nom" style="text-align: right;"/>  
+                                                <p:inputText id="nom"  required="true" label="Nom" value="#{decAMBean.decToAdd.nom_Epoux}" placeholder="Nom de l'époux" title="Nom de l'époux"/> 
+
+                                                <h:outputLabel for="dateN" value="Date de naissance" style="text-align: right;" />  
+                                                <p:calendar id="dateN" effect="fadeIn" navigator="true" value="#{decAMBean.decToAdd.dateNaissanceEpoux}" placeholder="Date de naissance de l'époux" title="Date de naissance de l'époux" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                <h:outputLabel for="lieuN" value="Lieu de naissance" style="text-align: right;"/>  
+                                                <p:inputText id="lieuN" required="true" label="Lieu de naissance" value="#{decAMBean.decToAdd.lieu_Naissance_Epoux}" placeholder="Lieu de naissance de l'époux" title="Lieu de naissance de l'époux"/> 
+
+                                                <h:outputLabel for="professiondc" value="Profession" style="text-align: right;"/>  
+                                                <p:inputText id="professiondc"  required="true" label="Prefession" value="#{decAMBean.decToAdd.profession_Epoux}" placeholder="Profession de l'époux" title="Profession de l'époux"/> 
+
+                                                <h:outputLabel for="domicile" value="Domicile" style="text-align: right;"/>  
+                                                <p:inputText id="domicile"  required="true" label="Domicile" value="#{decAMBean.decToAdd.domicile_Epoux}" placeholder="Domicile de l'époux" title="Domicile de l'époux"/> 
+
+                                                <h:outputLabel for="residence" value="Résidence" style="text-align: right;"/>  
+                                                <p:inputText id="residence"  required="true" label="Résidence" value="#{decAMBean.decToAdd.residence_Epoux}" placeholder="Résidence de l'époux" title="Résidence de l'époux"/> 
+
+                                                <h:outputLabel for="mariedTO" value="Marié à (1)" style="text-align: right;"/>  
+                                                <p:inputText id="mariedTO" label="Marié à" value="#{decAMBean.decToAdd.precedent_Conjoint}" placeholder="Précédente conjointe" title="Prénoms et Nom de l'épouse actuelle (S'il en a déjà)"/> 
+                                            </h:panelGrid>
+                                        </p:fieldset>
+
+                                        <p:fieldset legend="PARENTS DU MARI" style="width: 97%;">
+                                            <h:panelGrid columns="2" cellpadding="5" style="width: 100%;">
+                                                <p:panel header="LE PERE">
+                                                    <h:panelGrid columns="2" cellpadding="6" style="width: 100%;"> 
+                                                        <h:outputLabel for="firstnamePE" value="Prénoms" style="text-align: right;" />  
+                                                        <p:inputText id="firstnamePE"  label="Prenoms" value="#{decAMBean.decToAdd.prenom_Pere_Epoux}" placeholder="Prénoms du père de l'époux" title="Prénoms du père de l'époux"/>  
+
+                                                        <h:outputLabel for="nomPE" value="Nom" style="text-align: right;"/>  
+                                                        <p:inputText id="nomPE" label="Nom" value="#{decAMBean.decToAdd.nom_Pere_Epoux}" placeholder="Nom du père de l'époux" title="Nom du père de l'époux"/> 
+
+                                                        <h:outputLabel for="dateNPE" value="Date de naissance" style="text-align: right;" />  
+                                                        <p:calendar id="dateNPE" effect="fadeIn" navigator="true" placeholder="Date de naissance du père de l'époux" title="Date de naissance du père de l'époux" value="#{decAMBean.decToAdd.dateNaissancePereEpoux}" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                        <h:outputLabel for="lieuNPE" value="Lieu de naissance" style="text-align: right;"/>  
+                                                        <p:inputText id="lieuNPE" label="Lieu de naissance" value="#{decAMBean.decToAdd.lieu_Naissance_Pere_Epoux}" placeholder="Lieu de naissance du père de l'époux" title="Lieu de naissance du père de l'époux"/> 
+
+                                                        <h:outputLabel for="professionPE" value="Profession" style="text-align: right;"/>  
+                                                        <p:inputText id="professionPE"  label="Prefession" value="#{decAMBean.decToAdd.profession_Pere_Epoux}" placeholder="Profession du père de l'époux" title="Profession du père de l'époux"/> 
+
+                                                        <h:outputLabel for="domicilePE" value="Domicile" style="text-align: right;"/>  
+                                                        <p:inputText id="domicilePE" label="Domicile" value="#{decAMBean.decToAdd.domicile_Pere_Epoux}" placeholder="Domicile du père de l'époux" title="Domicile du père de l'époux"/> 
+
+                                                    </h:panelGrid>
+                                                </p:panel>
+                                                <p:panel header="LA MERE">
+                                                    <h:panelGrid columns="2" cellpadding="6" style="width: 100%;"> 
+                                                        <h:outputLabel for="firstnameME" value="Prénoms" style="text-align: right;" />  
+                                                        <p:inputText id="firstnameME" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Mere_Epoux}" placeholder="Prénoms de la mère de l'époux" title="Prénoms de la mère de l'époux"/>  
+
+                                                        <h:outputLabel for="nomME" value="Nom" style="text-align: right;"/>  
+                                                        <p:inputText id="nomME" label="Nom" value="#{decAMBean.decToAdd.nom_Mere_Epoux}" placeholder="Nom de la mère de l'époux" title="Nom de la mère de l'époux"/> 
+
+                                                        <h:outputLabel for="dateNME" value="Date de naissance" style="text-align: right;" />  
+                                                        <p:calendar id="dateNME" effect="fadeIn" navigator="true" placeholder="Date de naissance de la mère de l'époux" title="Date de naissance de la mère de l'époux" value="#{decAMBean.decToAdd.dateNaissanceMereEpoux}" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                        <h:outputLabel for="lieuNME" value="Lieu de naissance" style="text-align: right;"/>  
+                                                        <p:inputText id="lieuNME" label="Lieu de naissance" value="#{decAMBean.decToAdd.lieu_Naissance_Mere_Epoux}" placeholder="Lieu de anissance de la mère de l'époux" title="Lieu de anissance de la mère de l'époux"/> 
+
+                                                        <h:outputLabel for="professionME" value="Profession" style="text-align: right;"/>  
+                                                        <p:inputText id="professionME"  label="Prefession" value="#{decAMBean.decToAdd.profession_Mere_Epoux}" placeholder="Profession de la mère de l'époux" title="Profession de la mère de l'époux"/> 
+
+                                                        <h:outputLabel for="domicileME" value="Domicile" style="text-align: right;"/>  
+                                                        <p:inputText id="domicileME"  label="Domicile" value="#{decAMBean.decToAdd.domicile_Mere_Epoux}" placeholder="Domicile de la mère de l'époux" title="Domicile de la mère de l'époux"/> 
+
+                                                    </h:panelGrid>
+                                                </p:panel>
+
+                                            </h:panelGrid>
+                                        </p:fieldset>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            <p:fieldset legend="INFORMATIONS SUR L'EPOUSE" >
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="5" style="width: 95%;">
+                                        <p:fieldset legend="LA MARIEE" style="width: 97%;">
+                                            <h:panelGrid columns="4" cellpadding="6" style="width: 100%;" > 
+                                                <h:outputLabel for="firstnameZ" value="Prénoms" style="text-align: right;" />  
+                                                <p:inputText id="firstnameZ"  required="true" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Epouse}" placeholder="Prénoms de l'épouse" title="Prénoms de l'épouse"/>  
+
+                                                <h:outputLabel for="nomZ" value="Nom" style="text-align: right;"/>  
+                                                <p:inputText id="nomZ"  required="true" label="Nom" value="#{decAMBean.decToAdd.nom_Epouse}" placeholder="Nom de l'épouse" title="Nom de l'épouse"/> 
+
+                                                <h:outputLabel for="dateNZ" value="Date de naissance" style="text-align: right;" />  
+                                                <p:calendar id="dateNZ" effect="fadeIn" navigator="true" value="#{decAMBean.decToAdd.dateNaissanceEpouse}" placeholder="Date de naissance de l'épouse" title="Date de naissance de l'épouse" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                <h:outputLabel for="lieuNZ" value="Lieu de naissance" style="text-align: right;"/>  
+                                                <p:inputText id="lieuNZ" required="true" label="Lieu de naissance" value="#{decAMBean.decToAdd.lieu_Naissance_Epouse}" placeholder="Lieu de naissance de l'épouse" title="Lieu de naissance de l'épouse"/> 
+
+                                                <h:outputLabel for="professionZ" value="Profession" style="text-align: right;"/>  
+                                                <p:inputText id="professionZ"  required="true" label="Prefession" value="#{decAMBean.decToAdd.profession_Epouse}" placeholder="Profession de l'épouse" title="Profession de l'épouse"/> 
+
+                                                <h:outputLabel for="domicileZ" value="Domicile" style="text-align: right;"/>  
+                                                <p:inputText id="domicileZ"  required="true" label="Domicile" value="#{decAMBean.decToAdd.domicile_Epouse}" placeholder="Domicile de l'épouse" title="Domicile de l'épouse"/> 
+
+                                                <h:outputLabel for="residenceZ" value="Résidence" style="text-align: right;"/>  
+                                                <p:inputText id="residenceZ"  required="true" label="Résidence" value="#{decAMBean.decToAdd.residence_Epouse}" placeholder="Résidence de l'épouse" title="Résidence de l'épouse"/> 
+
+                                            </h:panelGrid>
+                                        </p:fieldset>
+
+                                        <p:fieldset legend="PARENTS DE LA MARIEE" style="width: 97%;">
+                                            <h:panelGrid columns="2" cellpadding="5" style="width: 100%;">
+                                                <p:panel header="LE PERE">
+                                                    <h:panelGrid columns="2" cellpadding="6" style="width: 100%;"> 
+                                                        <h:outputLabel for="firstnamePZ" value="Prénoms" style="text-align: right;" />  
+                                                        <p:inputText id="firstnamePZ" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Pere_Epouse}" placeholder="Prénoms du père de l'épouse" title="Prénoms du père de l'épouse"/>  
+
+                                                        <h:outputLabel for="nomPZ" value="Nom" style="text-align: right;"/>  
+                                                        <p:inputText id="nomPZ" label="Nom" value="#{decAMBean.decToAdd.nom_Pere_Epouse}" placeholder="Nom du père de l'épouse" title="Nom du père de l'épouse"/> 
+
+                                                        <h:outputLabel for="dateNPZ" value="Date de naissance" style="text-align: right;" />  
+                                                        <p:calendar id="dateNPZ" effect="fadeIn" navigator="true"  value="#{decAMBean.decToAdd.dateNaissancePereEpouse}" placeholder="Date de naissance du père de l'épouse" title="Date de naissance du père de l'épouse" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                        <h:outputLabel for="lieuNPZ" value="Lieu de naissance" style="text-align: right;"/>  
+                                                        <p:inputText id="lieuNPZ" label="Lieu de naissance" value="#{decAMBean.decToAdd.lieu_Naissance_Pere_Epouse}" placeholder="Lieu de naissance du père de l'épouse" title="Lieu de naissance du père de l'épouse"/> 
+
+                                                        <h:outputLabel for="professionPZ" value="Profession" style="text-align: right;"/>  
+                                                        <p:inputText id="professionPZ" label="Prefession" value="#{decAMBean.decToAdd.profession_Pere_Epouse}" placeholder="Profession du père de l'épouse" title="Profession du père de l'épouse"/> 
+
+                                                        <h:outputLabel for="domicilePZ" value="Domicile" style="text-align: right;"/>  
+                                                        <p:inputText id="domicilePZ" label="Domicile" value="#{decAMBean.decToAdd.domicile_Pere_Epouse}" placeholder="Domicile  du père de l'épouse" title="Domicile du père de l'épouse"/> 
+
+                                                    </h:panelGrid>
+                                                </p:panel>
+                                                <p:panel header="LA MERE">
+                                                    <h:panelGrid columns="2" cellpadding="6" style="width: 100%;"> 
+                                                        <h:outputLabel for="firstnameMZ" value="Prénoms" style="text-align: right;" />  
+                                                        <p:inputText id="firstnameMZ" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Mere_Epouse}" placeholder="Prénoms de la mère de l'épouse" title="Prénoms de la mère de l'épouse"/>  
+
+                                                        <h:outputLabel for="nomMZ" value="Nom" style="text-align: right;"/>  
+                                                        <p:inputText id="nomMZ" label="Nom" value="#{decAMBean.decToAdd.nom_Mere_Epouse}" placeholder="Nom de la mère de l'épouse" title="Nom de la mère de l'épouse"/> 
+
+                                                        <h:outputLabel for="dateNMZ" value="Date de naissance" style="text-align: right;" />  
+                                                        <p:calendar id="dateNMZ" effect="fadeIn" navigator="true" value="#{decAMBean.decToAdd.dateNaissanceMereEpouse}" placeholder="Date de naissance de la mère de l'épouse" title="Date de naissance de la mère de l'épouse" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                        <h:outputLabel for="lieuNMZ" value="Lieu de naissance" style="text-align: right;"/>  
+                                                        <p:inputText id="lieuNMZ" label="Lieu de naissance" value="#{decAMBean.decToAdd.lieu_Naissance_Mere_Epouse}" placeholder="Lieu de naissance de la mère de l'épouse" title="Lieu de naissance de la mère de l'épouse"/> 
+
+                                                        <h:outputLabel for="professionMZ" value="Profession" style="text-align: right;"/>  
+                                                        <p:inputText id="professionMZ" label="Prefession" value="#{decAMBean.decToAdd.profession_Mere_Epouse}" placeholder="Profession de la mère de l'épouse" title="Profession de la mère de l'épouse"/> 
+
+                                                        <h:outputLabel for="domicileMZ" value="Domicile" style="text-align: right;"/>  
+                                                        <p:inputText id="domicileMZ" label="Domicile" value="#{decAMBean.decToAdd.domicile_Mere_Epouse}" placeholder="Domicile de la mère de l'épouse" title="Domicile de la mère de l'épouse"/> 
+
+                                                    </h:panelGrid>
+                                                </p:panel>
+
+                                            </h:panelGrid>
+                                        </p:fieldset>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="INFORMATIONS SUR LES TEMOINS">
+                                <h:panelGrid columns="2" cellpadding="4" style="width: 100%">
+                                    <p:panel header="EPOUX">
+                                        <h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+                                            <h:outputLabel for="firstnameTX1" value="1 - Prénoms" style="text-align: right;" />  
+                                            <p:inputText id="firstnameTX1" required="true" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Temoin1_Epoux}" placeholder="Prénoms premier témoin de l'époux" title="Prénoms premier témoin de l'époux"/>  
+
+                                            <h:outputLabel for="nomTX1" value="1 - Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomTX1" required="true" label="Nom" value="#{decAMBean.decToAdd.nom_Temoin1_Epoux}" placeholder="Nom premier témoin de l'époux" title="Nom premier témoin de l'époux"/> 
+
+                                            <h:outputLabel for="adresseTX1" value="1 - Domicile" style="text-align: right;" />  
+                                            <p:inputText id="adresseTX1" required="true" label="Domicile" value="#{decAMBean.decToAdd.domicile_Temoin1_Epoux}" placeholder="Domicile premier témoin de l'époux" title="Domicile premier témoin de l'époux"/>  
+
+                                            <h:outputLabel for="professionTX1" value="1 - Profession" style="text-align: right;"/>  
+                                            <p:inputText id="professionTX1" required="true" label="Profession" value="#{decAMBean.decToAdd.profession_Temoin1_Epoux}" placeholder="Profession premier témoin de l'époux" title="Profession premier témoin de l'époux"/>
+                                            
+                                            <h:outputLabel for="cnTX1" value="1 - Numéro carte d'idnetité" style="text-align: right;"/>  
+                                            <p:inputMask id="cnTX1" required="true" label="Carte d'identité" value="#{decAMBean.decToAdd.cni_Temoin1_Epoux}" mask="9999999999999" placeholder="Cni premier témoin de l'époux" title="Numéro carte d'identité national du premier témoin de l'époux"/>
+ 
+                                        </h:panelGrid>
+                                        <p:separator/>
+                                        <h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+                                            <h:outputLabel for="firstnameTX2" value="2 - Prénoms" style="text-align: right;" />  
+                                            <p:inputText id="firstnameTX2" required="true" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Temoin2_Epoux}" placeholder="Prénoms second témoin de l'époux" title="Prénoms second témoin de l'époux"/>  
+
+                                            <h:outputLabel for="nomTX2" value="2 - Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomTX2" required="true" label="Nom" value="#{decAMBean.decToAdd.nom_Temoin2_Epoux}" placeholder="Nom second témoin de l'époux" title="Nom second témoin de l'époux"/> 
+
+                                            <h:outputLabel for="adresseTX2" value="2 - Domicile" style="text-align: right;" />  
+                                            <p:inputText id="adresseTX2" required="true" label="Domicile" value="#{decAMBean.decToAdd.domicile_Temoin2_Epoux}" placeholder="Domicile second témoin de l'époux" title="Domicile second témoin de l'époux"/>  
+
+                                            <h:outputLabel for="professionTX2" value="2 - Profession" style="text-align: right;"/>  
+                                            <p:inputText id="professionTX2" required="true" label="Profession" value="#{decAMBean.decToAdd.profession_Temoin2_Epoux}" placeholder="Profession second témoin de l'époux" title="Profession second témoin de l'époux"/>
+                                            
+                                            <h:outputLabel for="cnTX2" value="2 - Numéro carte d'idnetité" style="text-align: right;"/>  
+                                            <p:inputMask id="cnTX2" required="true" label="Carte d'identité" value="#{decAMBean.decToAdd.cni_Temoin2_Epoux}" mask="9999999999999" placeholder="Cni second témoin de l'époux" title="Numéro carte d'identité national du second témoin de l'époux"/>
+                                             
+                                        </h:panelGrid>
+                                    </p:panel>
+                                    <p:panel header="EPOUSE">
+                                        <h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+                                            <h:outputLabel for="firstnameTY1" value="1 - Prénoms" style="text-align: right;" /> 
+                                            <p:inputText id="firstnameTY1" required="true" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Temoin1_Epouse}" placeholder="Prénoms du premier témoin de l'épouse" title="Prénoms du premier témoin de l'épouse"/>  
+
+                                            <h:outputLabel for="nomTY1" value="1 - Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomTY1" required="true" label="Nom" value="#{decAMBean.decToAdd.nom_Temoin1_Epouse}" placeholder="Nom du premier témoin de l'épouse" title="Nom du premier témoin de l'épouse"/> 
+
+                                            <h:outputLabel for="adresseTY1" value="1 - Domicile" style="text-align: right;" />  
+                                            <p:inputText id="adresseTY1" required="true" label="Domicile" value="#{decAMBean.decToAdd.domicile_Temoin1_Epouse}" placeholder="Domicile du premier témoin de l'épouse" title="Domicile du premier témoin de l'épouse"/>  
+
+                                            <h:outputLabel for="professionTY1" value="1 - Profession" style="text-align: right;"/>  
+                                            <p:inputText id="professionTY1" required="true" label="Profession" value="#{decAMBean.decToAdd.profession_Temoin1_Epouse}" placeholder="Profession du premier témoin de l'épouse" title="Profession du premier témoin de l'épouse"/> 
+                                            
+                                            <h:outputLabel for="cnTY1" value="1 - Numéro carte d'idnetité" style="text-align: right;"/>  
+                                            <p:inputMask id="cnTY1" required="true" label="Carte d'identité" value="#{decAMBean.decToAdd.cni_Temoin1_Epouse}" mask="9999999999999" placeholder="Cni du premier témoin de l'épouse" title="Numéro carte d'identité national du premier témoin de l'épouse"/>
+                                            
+                                        </h:panelGrid>
+                                        <p:separator/>
+                                        <h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+                                            <h:outputLabel for="firstnameTY2" value="2 - Prénoms" style="text-align: right;" />  
+                                            <p:inputText id="firstnameTY2" required="true" label="Prenoms" value="#{decAMBean.decToAdd.prenom_Temoin2_Epouse}" placeholder="Prénoms du second témoin de l'épouse" title="Prénoms du second témoin de l'épouse"/>  
+
+                                            <h:outputLabel for="nomTY2" value="2 - Nom" style="text-align: right;"/>  
+                                            <p:inputText id="nomTY2" required="true" label="Nom" value="#{decAMBean.decToAdd.nom_Temoin2_Epouse}" placeholder="Nom du second témoin de l'épouse" title="Nom du second témoin de l'épouse"/> 
+
+                                            <h:outputLabel for="adresseTY2" value="2 - Domicile" style="text-align: right;" />  
+                                            <p:inputText id="adresseTY2" required="true" label="Domicile" value="#{decAMBean.decToAdd.domicile_Temoin2_Epouse}" placeholder="Domicile du second témoin de l'épouse" title="Domicile du second témoin de l'épouse"/>  
+
+                                            <h:outputLabel for="professionTY2" value="2 - Profession" style="text-align: right;"/>  
+                                            <p:inputText id="professionTY2" required="true" label="Profession" value="#{decAMBean.decToAdd.profession_Temoin2_Epouse}" placeholder="Profession du second témoin de l'épouse" title="Profession du second témoin de l'épouse"/> 
+                                            
+                                            
+                                            <h:outputLabel for="cnTY2" value="2 - Numéro carte d'idnetité" style="text-align: right;"/>  
+                                            <p:inputMask id="cnTY2" required="true" label="Carte d'identité" value="#{decAMBean.decToAdd.cni_Temoin2_Epouse}" mask="9999999999999" placeholder="Cni du second témoin de l'épouse" title="Numéro carte d'identité national du second témoin de l'épouse"/>
+                                            
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="COMPLEMENTS">
+                                <div align="center">
+                                   
+                                            <h:panelGrid columns="4" cellpadding="5" style="width: 90%">
+                                                
+                                                <h:outputLabel value="Numéro de jugement" style="text-align: right;"/>  
+                                                <p:inputMask  value="#{decAMBean.decToAdd.numero_Jugement}" mask="99999" placeholder="Numéro jugement" title="Numéro jugement"/> 
+                                                
+                                                <h:outputLabel value="Date de jugement" />   
+                                                <p:calendar effect="fadeIn" navigator="true" value="#{decAMBean.decToAdd.dateJugement}" placeholder="Date du jugement" title="Date du jugement"  maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+
+                                                <h:outputLabel value="Tribunal" style="text-align: right;"/>  
+                                                <p:inputText  value="#{decAMBean.decToAdd.tribunal}" placeholder="Tribunal de paix" title="Tribunal de paix"/> 
+                                            </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="5" style="width: 90%;">
+                            <p:fieldset legend="MENTIONS MARGINALES">
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="5">
+                                      	<div align="center">
+                                    		<p:inputTextarea value="#{decAMBean.decToAdd.mentions_Marginales}" placeholder="Mentions marginales" title="Mentions marginales" rows="15" cols="160" style="width: 100%; " label="Mention marginale" />  
+                                		</div>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid >
+                        <h:panelGrid columns="1" cellspacing="5">
+                            <p:commandButton value=" Enregistrer " update="growl" action="#{decAMBean.saveDeclarationMariage}"  />
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </ui:define>
+
+
+        </ui:composition>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed) {
+                    jQuery('#formAddDec').effect("shake", {times: 6}, 100);
+                }
+                else {
+                    location.href = args.route;
+                }
+            }
+        </script> 
+    </body>
+</ui:fragment>
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+			
+		</ui:fragment>
+
+</html>

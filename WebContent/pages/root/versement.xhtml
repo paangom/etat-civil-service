@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Versement</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="../../template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                <h1 align="center">VERSEMENT DE LA RECETTE DES DOCUMENTS ET PIECES D'ETAT CIVIL</h1>
+                <div align="center">
+		 			<h:panelGrid columns="1" cellpadding="5" style="width: 90%">
+		                	<p:panel header="Les pièces délivrées par les urilisateurs" style="width:100%">
+		                		<h:form id="formDataTable">
+		                   				<p:dataTable id="users" var="user" value="#{userBean.users}" style="width: 100%"  paginator="true" rows="10"  
+		                                          
+		                                         rowsPerPageTemplate="5,10,15">  
+												
+										<p:column headerText="Prénoms" style="text-align: center;">  
+		                                    <h:outputText value="#{user.userPrenom}" />  
+		                                </p:column>  
+		
+		                                <p:column headerText="Nom" style="text-align: center;">  
+		                                    <h:outputText value="#{user.userNom}" />  
+		                                </p:column>
+		                                
+		                               
+		                                <p:column headerText="Téléphone" style="text-align: center;">  
+		                                    <h:outputText value="#{user.userNumTel}" />  
+		                                </p:column>   
+		
+		                                <p:column headerText="Profil" style="text-align: center;">  
+		                                    <h:outputText value="#{user.userProfil}" />  
+		                                </p:column> 
+		
+		                                
+		                                <p:column style="width:6%; text-align: center;">
+		                                        
+		                                        <p:commandButton id="btnPaiement"  update=":formValidate" oncomplete="userDialogDelete.show()" icon="ui-icon-circle-check" title="Paiement">  
+		                                            <f:setPropertyActionListener value="#{user}" target="#{userBean.selectedUser}" />  
+		                                        </p:commandButton>
+		                                    
+		                                </p:column>  
+		
+		                            </p:dataTable>
+		                        </h:form>
+		                        
+		                        <h:form id="formValidate">
+		                            <p:dialog header="Détails" widgetVar="userDialogDelete" resizable="false" id="userDlgDelete" style="width:400px;" 
+		                                      showEffect="fade" hideEffect="explode" modal="true">  
+										<h:panelGrid columns="1" cellpadding="5" style="width: 90%">
+		                                <p:dataTable id="pieces" var="piece" value="#{userBean.piecesDelNonVal}" style="width: 600px"  paginator="true" rows="10"  
+		                                          
+		                                      emptyMessage="Aucun document délivré par cet agent."   rowsPerPageTemplate="5,10,15">  
+												
+										<p:column headerText="Libelé du document d'Etat Civil" style="text-align: center;">  
+		                                    <h:outputText value="#{piece.piecedelivred.libelle}" />  
+		                                </p:column>  
+		
+		                                <p:column headerText="Prix" style="text-align: center;">  
+		                                    <h:outputText value="#{piece.piecedelivred.prix}" />  
+		                                </p:column>
+		                                
+		                               
+		                                <p:column headerText="Date délivré" style="text-align: center;">  
+		                                    <h:outputText value="#{piece.piecedelivred.date_creation}" />  
+		                                </p:column>   
+		
+		                               
+		                            </p:dataTable>  
+									<div align="right" ><h3><b>ToTal #{userBean.paiement} FCFA</b></h3></div>
+									<div align="right">
+										<h:form>
+										<p:growl id="growl1" sticky="true" />
+											
+		                                        <p:separator/>
+		                                        <p:commandButton id="btnUpdateeOK" update=":formDataTable:users,growl1" action="#{userBean.payer}" oncomplete="userDialogDelete.hide()" icon="ui-icon-disk" title="Paiement" value="Payer"/> 
+		                                        <p:commandButton id="btnUpdateCancel" oncomplete="userDialogDelete.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+		                                    
+										</h:form>
+									</div>
+									</h:panelGrid>
+		                            </p:dialog>  
+		
+		                        </h:form>  
+		                	</p:panel>
+		                </h:panelGrid>
+ 					</div>
+                 </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+</ui:fragment>
+</html>
